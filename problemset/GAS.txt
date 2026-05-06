@@ -950,7 +950,7 @@ function updateOverallSummarySheet(ss) {
         .setHorizontalAlignment("center");
       memberSheet.setFrozenRows(1);
       // サンプル行を追加（削除可能）
-      memberSheet.getRange(2, 1, 1, 3).setValues([["菊", "1", "サンプル"]]);
+      memberSheet.getRange(2, 1, 1, 3).setValues([["A", "1", "サンプル"]]);
     }
     
     // 成績一覧シートを作成/取得
