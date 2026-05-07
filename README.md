@@ -6,4 +6,4 @@ GitHub Pages entrypoint for the R8H2 problemset app.
 
 - Root: `/`
 - App: `/problemset/`
-- Direct page: `/problemset/science2.0.html`
+- Direct page: `/problemset/physics2.0.html`
