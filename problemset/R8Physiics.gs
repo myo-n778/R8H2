@@ -800,11 +800,30 @@ function getConfigMeta(key) {
   return meta[key] || ["", ""];
 }
 
+function getDefaultConfigRows() {
+  return [
+    ["appUrl", "https://myo-n778.github.io/R8H2/problemset/physics2.0.html"],
+    ["perSetPerfectCap", "5"],
+    ["dailyGrantLimit", "2"],
+    ["disableExpCaps", "true"],
+    ["duplicateLogWindowSec", "60"],
+    ["announcementEnabled", "false"],
+    ["announcementText", ""],
+    ["announcementUpdatedAt", ""],
+    ["adminKey", ""],
+    ["hiddenProblemSheets", ""]
+  ].map(function(row) {
+    const meta = getConfigMeta(row[0]);
+    return [row[0], row[1], meta[0] || "", meta[1] || ""];
+  });
+}
+
 function ensureConfigSheetSchema(ss) {
   let sheet = ss.getSheetByName("設定");
   if (!sheet) {
     sheet = ss.insertSheet("設定");
-    sheet.getRange(1, 1, 1, 4).setValues([["key", "value", "説明", "入力例・注意"]]);
+    const initialRows = [["key", "value", "説明", "入力例・注意"]].concat(getDefaultConfigRows());
+    sheet.getRange(1, 1, initialRows.length, 4).setValues(initialRows);
     sheet.getRange(1, 1, 1, 4).setBackground("#f3f3f3").setFontWeight("bold");
     sheet.setFrozenRows(1);
     return sheet;
@@ -817,13 +836,18 @@ function ensureConfigSheetSchema(ss) {
   sheet.getRange(1, 1, 1, 4).setBackground("#f3f3f3").setFontWeight("bold");
   sheet.setFrozenRows(1);
   const values = sheet.getDataRange().getDisplayValues();
+  const existingKeys = {};
   for (let i = 1; i < values.length; i++) {
     const key = String(values[i][0] || '').trim();
     if (!key) continue;
+    existingKeys[key] = true;
     const meta = getConfigMeta(key);
     if (meta[0] && !String(values[i][2] || '').trim()) sheet.getRange(i + 1, 3).setValue(meta[0]);
     if (meta[1] && !String(values[i][3] || '').trim()) sheet.getRange(i + 1, 4).setValue(meta[1]);
   }
+  getDefaultConfigRows().forEach(function(row) {
+    if (!existingKeys[row[0]]) sheet.appendRow(row);
+  });
   return sheet;
 }
 
