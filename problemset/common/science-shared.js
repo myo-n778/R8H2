@@ -29,7 +29,7 @@
   }
 
   window.ScienceShared = {
-    gasUrl: "https://script.google.com/macros/s/AKfycbz_QAN0sX0btTOt7ivd8BI9IC4dRhYxVckpMmD97gi7RxXc-b34SWgJDz4Kn1QBGwhmGg/exec",
+    gasUrl: "https://script.google.com/macros/s/AKfycbxRS327xHlhm_eEj3GXXqq5DgWDDEvy_gdFWvURPpcOWQ19XP0rl7d6gvxDcXJw8Juo_w/exec",
     normalizeUserName: normalizeUserName,
     formatDateYmd: formatDateYmd,
     buildEraSessionStats: buildEraSessionStats
