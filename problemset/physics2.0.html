@@ -495,6 +495,9 @@
         let canAnswer = true; let chartInstance = null;
         let chartScriptLoading = null;
         let sessionAnswers = [];
+        let currentSessionId = "";
+        let sessionLogPromise = null;
+        let sessionLogCompleted = false;
         let isRankingPublic = true; // ランキング公開設定（デフォルトは公開）
         let isQuestionShuffleEnabled = false; // 問題シャッフル設定（デフォルトはOFF）
         let isWeakPointsMode = false; // Weak Pointsモード（間違えた問題のみ表示）
@@ -1365,6 +1368,10 @@
 
         async function logDetailedResultsToSpreadsheet(pct, correct, total) {
             if (!FIXED_GAS_URL) return null;
+            if (sessionLogCompleted) {
+                return { status: 'duplicate_skipped', appliedExp: 0, expReason: '保存済みセッション' };
+            }
+            if (sessionLogPromise) return sessionLogPromise;
             // 入力フィールドからURLを取得
             const urlInput = getEl('main-spreadsheet-url');
             const spreadsheetUrl = urlInput && urlInput.value ? urlInput.value : FIXED_SPREADSHEET_URL;
@@ -1381,6 +1388,7 @@
                 userId: userId,
                 userClass: USER_CLASS,
                 userNumber: USER_NUMBER,
+                sessionId: currentSessionId || `${userId}-${Date.now()}`,
                 summaryAccuracy: pct + '%', 
                 summaryScore: `${correct}/${total}`, 
                 summaryRange: currentSessionRangeLabel, 
@@ -1391,11 +1399,18 @@
                 isPublic: isRankingPublic ? '1' : '0', 
                 status: USER_STATUS || '' 
             };
-            try {
+            sessionLogPromise = (async () => {
                 const result = await fetchWithRetry(`${FIXED_GAS_URL}?${new URLSearchParams(payload).toString()}`);
+                if (result && (result.status === 'success' || result.status === 'duplicate_skipped')) {
+                    sessionLogCompleted = true;
+                }
                 window.syncAllFromSpreadsheet(true);
                 return result;
+            })();
+            try {
+                return await sessionLogPromise;
             } catch (e) {
+                sessionLogPromise = null;
                 return null;
             }
         }
@@ -2301,6 +2316,10 @@
 
         function startQuiz() { 
             currentIdx = 0; score = 0; streak = 0; sessionAnswers = []; 
+            const userId = `${USER_CLASS}-${USER_NUMBER}-${USER_NAME}`;
+            currentSessionId = `${userId}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+            sessionLogPromise = null;
+            sessionLogCompleted = false;
             // シャッフルが有効な場合、問題の出題順をシャッフル
             if (isQuestionShuffleEnabled) {
                 quizData = shuffleArray([...quizData]);
@@ -2501,6 +2520,7 @@
         }
 
         function finishSession() {
+            if (sessionLogCompleted || sessionLogPromise) return;
             const oldExp = parseInt(getEl('total-neural-exp').innerText) || 0;
             const oldLv = Math.floor(oldExp / 10);
             getEl('quiz-screen').classList.add('hidden'); getEl('result-screen').classList.remove('hidden');

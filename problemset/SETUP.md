@@ -131,3 +131,10 @@ const FIXED_SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/15hI6L62uw
 - **"Invalid argument: id"**: スプレッドシートIDが正しく設定されていません
 - **"スプレッドシートが見つかりません"**: スプレッドシートIDが間違っているか、権限がありません
 - **"データの取得に失敗しました"**: GAS URLが間違っているか、GASスクリプトがデプロイされていません
+
+## 変更履歴
+
+- 2026-05-27: 成績保存の多重登録対策を追加
+  - HTML側で1セッション1保存に制限
+  - GAS側で `LockService` による排他制御を追加
+  - `sessionId` を `履歴ログ` の「セッションID」列に保存し、同一セッションの再登録を拒否

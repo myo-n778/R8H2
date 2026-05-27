@@ -156,6 +156,7 @@ return fallback;
 }
 
 function handleLogAll(p) {
+let logLock = null;
 try {
 if (!p.spreadsheetId || p.spreadsheetId.trim() === '') {
   return returnJson({ status: "error", message: "スプレッドシートIDが指定されていません" });
@@ -167,13 +168,19 @@ try {
 } catch (openError) {
   return returnJson({ status: "error", message: "スプレッドシートが見つかりません: " + openError.toString() });
 }
+logLock = LockService.getScriptLock();
+logLock.waitLock(10000);
 const runtimeConfig = readRuntimeConfigFromSheet(ss);
 const details = JSON.parse(p.details);
 const now = new Date();
 const timestampStr = Utilities.formatDate(now, "JST", "yyyy/MM/dd HH:mm:ss");
 const requestedExp = parseInt(p.gainedExp) || 0;
-const historyHeaders = ["日時", "単元", "範囲", "正解率", "スコア", "ユーザー名", "ユーザーID", "クラス", "番号", "取得EXP", "累計EXP", "10回平均正解率", "通算正答率", "連続正解数", "公開設定", "セッション数", "最終取り組み日", "ステータス", "有効"];
+const sessionId = String(p.sessionId || '').trim();
+const historyHeaders = ["日時", "単元", "範囲", "正解率", "スコア", "ユーザー名", "ユーザーID", "クラス", "番号", "取得EXP", "累計EXP", "10回平均正解率", "通算正答率", "連続正解数", "公開設定", "セッション数", "最終取り組み日", "ステータス", "有効", "セッションID"];
 const historySheet = getOrCreateSheet(ss, "履歴ログ", historyHeaders);
+if (historySheet.getLastColumn() < historyHeaders.length) {
+  historySheet.getRange(1, 1, 1, historyHeaders.length).setValues([historyHeaders]);
+}
 let hData = historySheet.getDataRange().getValues();
 let userRows = hData.filter((r, idx) => idx > 0 && String(r[6]) === String(p.userId) && isHistoryRowEnabled(r));
 
@@ -193,22 +200,23 @@ if (hData.length > 1) {
   }
 }
 
-// 重複防止（fail-open）: 直近60秒以内に同一ユーザー・同一セット・同一得点の記録があればスキップ
+// 重複防止: 同一sessionId、または直近指定秒以内の同一ユーザー・同一セット・同一得点をスキップ
 try {
   const duplicateLogWindowSec = Math.max(0, Number(runtimeConfig.duplicateLogWindowSec) || 60);
   const DUP_WINDOW_MS = duplicateLogWindowSec * 1000;
-  if (userRows.length > 0) {
-    const lastRow = userRows[userRows.length - 1];
-    const lastTs = new Date(lastRow[0]).getTime();
+  for (let dupIdx = userRows.length - 1; dupIdx >= 0; dupIdx--) {
+    const row = userRows[dupIdx];
+    const sameSession = sessionId && String(row[19] || '').trim() === sessionId;
+    const lastTs = new Date(row[0]).getTime();
     const nowTs = now.getTime();
     const withinWindow = !isNaN(lastTs) && nowTs >= lastTs && (nowTs - lastTs) <= DUP_WINDOW_MS;
-    const sameSet = String(lastRow[1] || '') === String(p.summaryEra || '') && String(lastRow[2] || '') === String(p.summaryRange || '');
-    const sameScore = String(lastRow[4] || '') === String(p.summaryScore || '');
-    const sameAcc = String(lastRow[3] || '') === String(p.summaryAccuracy || '');
-    if (withinWindow && sameSet && sameScore && sameAcc) {
-      const hasNewFormat = lastRow.length >= 18;
+    const sameSet = String(row[1] || '') === String(p.summaryEra || '') && String(row[2] || '') === String(p.summaryRange || '');
+    const sameScore = String(row[4] || '') === String(p.summaryScore || '');
+    const sameAcc = String(row[3] || '') === String(p.summaryAccuracy || '');
+    if (sameSession || (withinWindow && sameSet && sameScore && sameAcc)) {
+      const hasNewFormat = row.length >= 18;
       const cumulativeExpIndex = hasNewFormat ? 10 : 9;
-      const currentTotalExp = parseInt(lastRow[cumulativeExpIndex]) || 0;
+      const currentTotalExp = parseInt(row[cumulativeExpIndex]) || 0;
       return returnJson({
         status: "duplicate_skipped",
         message: `${duplicateLogWindowSec}秒以内の同一記録をスキップしました`,
@@ -331,7 +339,7 @@ const userClass = p.userClass || '';
 const userNumber = p.userNumber || '';
 historySheet.appendRow([
   timestampStr, p.summaryEra, p.summaryRange, p.summaryAccuracy, p.summaryScore,
-  p.dbName, p.userId, userClass, userNumber, gainedExp, newTotalExp, avg10AccStr, overallAccStr, currentStreak, isPublic, sessionCount, lastAttemptDate, userStatus, "1"
+  p.dbName, p.userId, userClass, userNumber, gainedExp, newTotalExp, avg10AccStr, overallAccStr, currentStreak, isPublic, sessionCount, lastAttemptDate, userStatus, "1", sessionId
 ]);
 
 // 成績一覧シートを更新（全分野を1つのシートにまとめる）
@@ -367,8 +375,12 @@ return returnJson({
   expReason: expReasonParts.join(" / ")
 });
 
-
 } catch (err) { return returnJson({ status: "error", message: err.toString() }); }
+finally {
+  if (logLock) {
+    try { logLock.releaseLock(); } catch (releaseError) { console.error("保存ロック解放エラー:", releaseError); }
+  }
+}
 }
 
 function handleSync(ssId, userId) {
