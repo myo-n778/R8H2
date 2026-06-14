@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Orbitron:wght@400;700;900&family=Cinzel:wght@700&display=swap');
-        
+
         :root {
             --bg-deep: #0f172a;
             --panel-bg: rgba(30, 41, 59, 0.85);
@@ -70,21 +70,21 @@
         .font-flashy { font-family: 'Orbitron', sans-serif; }
         .font-header { font-family: 'Cinzel', serif; }
         .glass-panel { background: var(--panel-bg); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); transition: background-color 0.5s ease; box-shadow: none !important; }
-        
-        .option-btn { 
-            transition: all 0.2s; 
-            background: rgba(255, 255, 255, 0.05); 
+
+        .option-btn {
+            transition: all 0.2s;
+            background: rgba(255, 255, 255, 0.05);
             padding: var(--option-padding-y) var(--option-padding-x) !important;
             min-height: 3.2rem;
             line-height: var(--option-line-height);
-            display: flex; 
+            display: flex;
             align-items: flex-start;
             justify-content: flex-start;
             text-align: left;
             font-size: var(--option-font-size);
-            border: 1px solid rgba(255,255,255,0.05); 
-            border-radius: 0.75rem; 
-            width: 100%; 
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 0.75rem;
+            width: 100%;
             color: var(--text-main);
             overflow-wrap: anywhere;
             word-break: break-word;
@@ -98,19 +98,19 @@
         #explanation-content { font-size: var(--explanation-font-size) !important; overflow-wrap: anywhere; word-break: break-word; }
         .font-size-control button { color: rgba(248, 250, 252, 0.68); background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); }
         .font-size-control button.active { color: var(--bg-deep); background: var(--accent-primary); border-color: rgba(255, 255, 255, 0.55); }
-        
+
         .explanation-card { line-height: 1.6; border-left: 4px solid var(--accent-primary); }
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
+
         .progress-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); transition: all 0.3s; }
         .dot-correct { background: var(--accent-emerald); }
         .dot-wrong { background: var(--accent-rose); }
         .dot-active { background: var(--accent-primary); transform: scale(1.3); }
-        
+
         .group-header { background: rgba(255, 255, 255, 0.08); padding: 0.9rem 1.2rem; margin-bottom: 4px; cursor: pointer; font-weight: 900; font-size: 0.85rem; color: var(--text-main); display: flex; justify-content: space-between; border-radius: 12px; }
         .era-header { background: rgba(255, 255, 255, 0.03); border-left: 3px solid var(--accent-primary); padding: 0.75rem 1rem; cursor: pointer; display: flex; justify-content: space-between; margin: 4px 4px 4px 12px; border-radius: 6px; font-size: 0.85rem; }
-        
+
         .expanded { max-height: 3000px !important; opacity: 1 !important; visibility: visible !important; padding-bottom: 0.5rem; transition: all 0.3s ease-in-out; }
         .era-content { transition: all 0.3s ease-in-out; }
         #custom-modal { display: none; position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 1.5rem; }
@@ -118,15 +118,15 @@
         #registration-modal { display: none; position: fixed; inset: 0; z-index: 11000; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 1rem; }
         #registration-modal.active { display: flex; }
         #status-modal { z-index: 12000; }
-        
+
         .neural-level-badge { background: linear-gradient(135deg, var(--accent-primary), #a855f7); color: white; padding: 2px 10px; border-radius: 4px; font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: 900; }
         /* ランキングの横スクロール対応案1 (CSSのみで解決) */
-        .ranking-card { 
-            background: rgba(255, 255, 255, 0.03); 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            border-radius: 1rem; 
-            padding: 0.75rem; 
-            margin-top: 1rem; 
+        .ranking-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 0.75rem;
+            margin-top: 1rem;
             box-shadow: none !important;
             overflow-x: auto;
             overflow-y: auto;
@@ -136,10 +136,24 @@
         .ranking-card::-webkit-scrollbar { height: 4px; width: 4px; }
         .ranking-card::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
         .ranking-card::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
-        
+
+        .ranking-table-scroll {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 0.25rem;
+            scrollbar-width: thin;
+        }
+        .ranking-table-scroll::-webkit-scrollbar { height: 4px; }
+        .ranking-table-scroll::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.16); border-radius: 10px; }
+        .ranking-table-scroll::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); }
+        .ranking-table-scroll .grid {
+            min-width: 1000px;
+        }
+
         /* 中のグリッドが適切な幅になるように固定（status列まで含めて広めに設定） */
-        .ranking-card .grid { 
-            min-width: 1000px; 
+        .ranking-card .grid {
+            min-width: 1000px;
         }
         /* status列の横スクロール対応 */
         .ranking-status-cell {
@@ -158,7 +172,7 @@
         }
         .goal-btn { transition: all 0.3s; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #94a3b8; font-family: 'Orbitron', sans-serif; box-shadow: none !important; }
         .goal-btn.active { background: var(--accent-primary); border-color: white; color: white; }
-        
+
         /* レベルアップ後の点滅アニメーション（金色） */
         @keyframes levelUpBlink {
             0%, 100% { color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.8); }
@@ -167,7 +181,7 @@
         .level-up-blink {
             animation: levelUpBlink 1s ease-in-out infinite;
         }
-        
+
         /* レベルアップが近いときの点滅アニメーション（紫/ピンク） */
         @keyframes nearLevelUpBlink {
             0%, 100% { color: #a855f7; text-shadow: 0 0 8px rgba(168, 85, 247, 0.6); }
@@ -202,7 +216,7 @@
         .credit-glow-cyan { color: var(--accent-cyan); text-shadow: 0 0 8px rgba(0, 242, 255, 0.6); }
         .copyright-text { letter-spacing: 0.4em; opacity: 0.3; transition: opacity 0.3s; }
         footer:hover .copyright-text { opacity: 0.6; }
-        
+
         /* KaTeX数式のスタイル調整 */
         .katex { font-size: 1.1em; }
         .katex-display { margin: 1em 0; }
@@ -330,19 +344,38 @@
                         </div>
                         <div style="position:relative; height:240px; width:100%; margin-top: 10px;"><canvas id="performanceChart"></canvas></div>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                            <div class="bg-slate-900/50 p-2 md:p-3 rounded-xl border border-white/5 text-center"><p class="text-[8px] text-slate-300 mb-0.5 uppercase font-bold">Total EXP</p><p id="total-neural-exp" class="text-sm md:text-lg font-flashy text-purple-400">0</p></div>
+                            <div class="bg-slate-900/50 p-2 md:p-3 rounded-xl border border-white/5 text-center"><p class="text-[8px] text-slate-300 mb-0.5 uppercase font-bold">今期EXP</p><p id="total-neural-exp" class="text-sm md:text-lg font-flashy text-purple-400">0</p><p id="lifetime-exp-display" class="text-[8px] text-slate-500 mt-0.5">累計EXP: 0</p></div>
                             <div class="bg-slate-900/50 p-2 md:p-3 rounded-xl border border-white/5 text-center"><p class="text-[8px] text-slate-300 mb-0.5 uppercase font-bold">10回平均</p><p id="recent-accuracy" class="text-sm md:text-lg font-flashy text-orange-400">--%</p></div>
                             <div class="bg-slate-900/50 p-2 md:p-3 rounded-xl border border-white/5 text-center"><p class="text-[8px] text-slate-300 mb-0.5 uppercase font-bold">通算正答率</p><p id="best-accuracy" class="text-sm md:text-lg font-flashy text-emerald-400">--%</p></div>
-                            <div class="bg-slate-900/50 p-2 md:p-3 rounded-xl border border-white/5 text-center"><p class="text-[8px] text-slate-300 mb-0.5 uppercase font-bold">累計演習</p><p id="total-sessions-count" class="text-sm md:text-lg font-flashy text-white">0</p></div>
+                            <div class="bg-slate-900/50 p-2 md:p-3 rounded-xl border border-white/5 text-center"><p class="text-[8px] text-slate-300 mb-0.5 uppercase font-bold">今期演習</p><p id="total-sessions-count" class="text-sm md:text-lg font-flashy text-white">0</p></div>
                             <div class="bg-slate-900/50 p-2 md:p-3 rounded-xl border border-white/5 text-center"><p class="text-[8px] text-slate-300 mb-0.5 uppercase font-bold">現在連続</p><p id="current-streak-display" class="text-sm md:text-lg font-flashy text-amber-400">0</p></div>
                             <div class="bg-slate-900/50 p-2 md:p-3 rounded-xl border border-white/5 text-center"><p class="text-[8px] text-slate-300 mb-0.5 uppercase font-bold">最大連続</p><p id="max-streak-display" class="text-sm md:text-lg font-flashy text-cyan-400">0</p></div>
                         </div>
                         <div id="ranking-card-wrapper" class="ranking-card space-y-2">
-                            <h3 class="text-[10px] font-black text-amber-400 uppercase italic flex items-center gap-2 mb-3"><i class="fas fa-trophy"></i> Top Scholars</h3>
-                            <div id="ranking-header" class="grid gap-3 items-center text-[8px] font-black text-white/40 uppercase border-b border-white/10 pb-1.5 mb-1" style="grid-template-columns: 30px auto 50px 35px 70px 70px 40px 50px 50px 140px auto;">
-                                <span class="text-center">RK</span><span>NAME</span><span class="text-left">EXP</span><span class="text-left">LV</span><span class="text-left">10th Ave.</span><span class="text-left">ALL Ave.</span><span class="text-left">SESS</span><span class="text-left">CST</span><span class="text-left">MST</span><span class="text-left">LAST</span><span class="text-left">STATUS</span>
+                            <h3 class="text-[10px] font-black text-amber-400 uppercase italic flex items-center justify-between gap-2 mb-3">
+                                <span><i class="fas fa-trophy"></i> Season Top Scholars</span>
+                                <span id="ranking-summary-count" class="text-[9px] text-white/35 normal-case">0 users</span>
+                            </h3>
+                            <div class="ranking-table-scroll">
+                                <div id="ranking-header" class="grid gap-3 items-center text-[8px] font-black text-white/40 uppercase border-b border-white/10 pb-1.5 mb-1" style="grid-template-columns: 30px auto 50px 35px 70px 70px 40px 50px 50px 140px auto;">
+                                    <span class="text-center">RK</span><span>NAME</span><span class="text-left">EXP</span><span class="text-left">LV</span><span class="text-left">10th Ave.</span><span class="text-left">ALL Ave.</span><span class="text-left">SESS</span><span class="text-left">CST</span><span class="text-left">MST</span><span class="text-left">LAST</span><span class="text-left">STATUS</span>
+                                </div>
+                                <div id="ranking-container" class="space-y-1"></div>
                             </div>
-                            <div id="ranking-container" class="space-y-1"></div>
+                            <details id="past-season-rankings-panel" class="mt-4 border-t border-white/10 pt-3">
+                                <summary class="cursor-pointer text-[10px] font-black text-slate-300 uppercase italic flex items-center justify-between gap-2">
+                                    <span><i class="fas fa-history"></i> Past Season Top Scholars</span>
+                                    <span id="past-season-ranking-count" class="text-[9px] text-white/35 normal-case">0 seasons</span>
+                                </summary>
+                                <div id="past-season-rankings-container" class="space-y-3 pt-3"></div>
+                            </details>
+                            <details id="lifetime-ranking-panel" class="mt-4 border-t border-white/10 pt-3">
+                                <summary class="cursor-pointer text-[10px] font-black text-slate-300 uppercase italic flex items-center justify-between gap-2">
+                                    <span><i class="fas fa-medal"></i> Lifetime Scholars</span>
+                                    <span id="lifetime-ranking-count" class="text-[9px] text-white/35 normal-case">0 users</span>
+                                </summary>
+                                <div id="lifetime-ranking-container" class="space-y-2 pt-3"></div>
+                            </details>
                         </div>
                     </div>
                     <div id="daily-stats-container" class="glass-panel rounded-[1.5rem] md:rounded-[2.5rem] p-4 md:p-6 space-y-3 max-h-[200px] overflow-y-auto"></div>
@@ -357,7 +390,7 @@
                     <div id="era-scroll-hint" class="hidden text-[10px] text-slate-400 text-center">↓ 項目はスクロールできます</div>
                 </div>
             </div>
-            
+
             <div id="sync-area" class="hidden glass-panel rounded-[1.5rem] p-6 border-white/10 space-y-6 fade-in mt-6 md:mt-8">
                 <div class="space-y-4">
                     <div class="flex justify-between items-center">
@@ -507,18 +540,26 @@
             <p class="copyright-text font-flashy text-[8px] md:text-[9px] uppercase mb-6 text-white/40">
                 &copy; 2026 NEURAL PHYSICS SYSTEMS | <span class="text-indigo-400/60">HIGH SPEC EDITION</span> | ALL RIGHTS RESERVED.
             </p>
-            
+
             <div class="credit-badge font-flashy text-[10px] md:text-[11px] tracking-[0.2em] uppercase font-black italic flex flex-wrap justify-center items-center gap-y-3 gap-x-4">
                 <div class="flex items-center gap-1">
-                    <span class="text-white/20 text-[8px]">CREATED BY</span> 
+                    <span class="text-white/20 text-[8px]">CREATED BY</span>
                     <span class="credit-glow-primary px-2 py-0.5 border border-indigo-500/20 rounded bg-indigo-500/5">Myo-n</span>
                 </div>
                 <div class="flex items-center gap-1">
-                    <span class="text-white/20 text-[8px]">USING</span> 
+                    <span class="text-white/20 text-[8px]">USING</span>
+                    <span class="credit-glow-amber">Codex</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <span class="text-white/20 text-[8px]">AND</span>
+                    <span class="credit-glow-cyan">GPT-5.5</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <span class="text-white/20 text-[8px]">WITH THANKS TO</span>
                     <span class="credit-glow-amber">ChatGPT 5.2</span>
                 </div>
                 <div class="flex items-center gap-1">
-                    <span class="text-white/20 text-[8px]">AND</span> 
+                    <span class="text-white/20 text-[8px]">AND</span>
                     <span class="credit-glow-cyan">Gemini 3.0</span>
                 </div>
             </div>
@@ -580,8 +621,13 @@
         let isWeakPointsMode = false; // Weak Pointsモード（間違えた問題のみ表示）
         let currentSessionEra = ""; let currentSessionRangeLabel = "";
         let userHistory = [];
+        let cumulativeHistory = [];
+        let lifetimeSummaryState = { totalExp: 0, sessionCount: 0, seasonExp: 0, seasonSessionCount: 0 };
         let questionStats = {};
         let rankingData = [];
+        let pastSeasonRankings = [];
+        let lifetimeRankingData = [];
+        let rankingColumnSizingState = null;
         let selectedGoal = 80;
         let runtimeConfigState = null;
         let adminLastDryRun = null;
@@ -939,13 +985,13 @@
         // KaTeX数式レンダリング関数（より確実な方法）
         function renderMath(element, maxAttempts = 30) {
             if (!element) return;
-            
+
             let attempts = 0;
-            
+
             // renderMathInElementが利用可能になるまで待つ
             const doRender = () => {
                 attempts++;
-                
+
                 // renderMathInElementが利用可能かチェック
                 if (typeof renderMathInElement === 'undefined') {
                     // まだ読み込まれていない場合は100ms後に再試行（最大maxAttempts回 = 3秒）
@@ -956,7 +1002,7 @@
                     }
                     return;
                 }
-                
+
                 try {
                     // 要素内のテキストを取得し、$...$で囲まれたLaTeX数式をレンダリング
                     renderMathInElement(element, {
@@ -974,7 +1020,7 @@
                     console.error('KaTeX rendering error:', e);
                 }
             };
-            
+
             // 即座に試行（既に読み込まれている場合）
             doRender();
         }
@@ -1048,15 +1094,15 @@
                 requestMethod: options.method || 'GET',
                 timestamp: new Date().toISOString()
             };
-            
+
             console.group('🔍 [新版] GAS同期診断');
             console.log('📤 リクエストURL:', url);
             console.log('📤 リクエストメソッド:', diagnostic.requestMethod);
             console.log('📤 リクエストオプション:', options);
-            
+
             try {
                 const res = await fetch(url, options);
-                
+
                 // レスポンスの基本情報を記録
                 diagnostic.responseStatus = res.status;
                 diagnostic.responseOk = res.ok;
@@ -1066,13 +1112,13 @@
                 res.headers.forEach((value, key) => {
                     diagnostic.responseHeaders[key] = value;
                 });
-                
+
                 console.log('📥 レスポンスステータス:', res.status, res.statusText);
                 console.log('📥 レスポンスOK:', res.ok);
                 console.log('📥 レスポンスURL（リダイレクト後）:', res.url);
                 console.log('📥 レスポンスヘッダー:', diagnostic.responseHeaders);
                 console.log('📥 Content-Type:', res.headers.get('content-type'));
-                
+
                 // リダイレクトチェック
                 if (res.url !== url) {
                     console.warn('⚠️ リダイレクト検出:', url, '→', res.url);
@@ -1087,54 +1133,54 @@
                         console.log('✅ GAS WebAppへの正常なリダイレクト（これは正常な動作です）');
                     }
                 }
-                
+
                 // HTTPステータスコード別の診断
                 if (res.status === 302 || res.status === 301 || res.status === 307 || res.status === 308) {
                     console.error('❌ リダイレクトステータス:', res.status);
                     throw new Error(`リダイレクトが発生しました: ${res.status} → ${res.url}`);
                 }
-                
+
                 if (res.status === 403) {
                     console.error('❌ 403 Forbidden: アクセス権限がありません');
                     throw new Error('403 Forbidden: GASのデプロイ設定で「アクセスできるユーザー: 全員」になっているか確認してください。');
                 }
-                
+
                 if (res.status === 404) {
                     console.error('❌ 404 Not Found: GAS URLが間違っているか、デプロイが無効です');
                     throw new Error('404 Not Found: GAS URLを確認してください。');
                 }
-                
+
                 if (res.status >= 500) {
                     console.error('❌ サーバーエラー:', res.status);
                     const errorText = await res.text().catch(() => '');
                     console.error('❌ エラー本文:', errorText.substring(0, 500));
                     throw new Error(`GASサーバーエラー ${res.status}: ${errorText.substring(0, 200)}`);
                 }
-                
+
                 if (!res.ok) {
                     console.error('❌ HTTPエラー:', res.status, res.statusText);
                     const errorText = await res.text().catch(() => '');
                     console.error('❌ エラー本文:', errorText.substring(0, 500));
                     throw new Error(`HTTP ${res.status}: ${res.statusText}`);
                 }
-                
+
                 // Content-Typeチェック
                 const contentType = res.headers.get('content-type') || '';
                 console.log('📥 Content-Type:', contentType);
-                
+
                 if (!contentType.includes('application/json') && !contentType.includes('text/plain')) {
                     console.warn('⚠️ Content-TypeがJSONではありません:', contentType);
                     const textPreview = await res.text().catch(() => '');
                     console.error('❌ レスポンス本文（先頭500文字）:', textPreview.substring(0, 500));
-                    
+
                     // HTMLが返された場合（ログインページなど）
                     if (textPreview.includes('<!DOCTYPE html>') || textPreview.includes('<html')) {
                         throw new Error('HTMLが返されました。GASのデプロイ設定で「アクセスできるユーザー: 全員」になっているか確認してください。');
                     }
-                    
+
                     throw new Error(`予期しないContent-Type: ${contentType}`);
                 }
-                
+
                 // JSONパースを試行
                 let jsonData;
                 try {
@@ -1147,18 +1193,18 @@
                     console.error('❌ レスポンス本文（先頭500文字）:', textData.substring(0, 500));
                     throw new Error(`JSONパースエラー: ${parseError.message}. レスポンス: ${textData.substring(0, 200)}`);
                 }
-                
+
                 // エラーフィールドのチェック
                 if (jsonData.error) {
                     console.error('❌ GAS側のエラー:', jsonData.error);
                     throw new Error(`GASエラー: ${jsonData.error}`);
                 }
-                
+
                 diagnostic.success = true;
                 console.log('✅ 同期成功');
                 console.groupEnd();
                 return jsonData;
-                
+
             } catch (err) {
                 diagnostic.error = err.message;
                 diagnostic.success = false;
@@ -1182,7 +1228,7 @@
                 throw err;
             }
         }
-        
+
         function formatAccStr(val) {
             if (val === null || val === undefined || val === "" || val === "--%") return "--%";
             let s = String(val).replace('%', '').trim();
@@ -1190,6 +1236,15 @@
             if (isNaN(n)) return "--%";
             if (n <= 1.0 && n > 0 && String(val).indexOf('%') === -1) n *= 100;
             return Math.round(n) + "%";
+        }
+
+        function escapeHtmlAttribute(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
         }
 
         function isSystemOrConfigSheetName(name) {
@@ -1201,7 +1256,7 @@
             return ['config', 'settings', '_config', '_settings'].includes(lower);
         }
 
-        function initUserInfo() { 
+        function initUserInfo() {
             USER_NAME = normalizeUserName(localStorage.getItem('ethics_user_name') || '');
             USER_CLASS = localStorage.getItem('ethics_user_class') || '';
             USER_NUMBER = localStorage.getItem('ethics_user_number') || '';
@@ -1216,15 +1271,15 @@
             // ローカルストレージからWeak Pointsモード設定を読み込む（デフォルトはOFF）
             const storedWeakPoints = localStorage.getItem('ethics_weak_points_mode');
             isWeakPointsMode = storedWeakPoints === 'true';
-            if (!USER_NAME) { 
-                getEl('registration-modal').classList.add('active'); 
-            } else { 
-                updateUserDisplay(); 
+            if (!USER_NAME) {
+                getEl('registration-modal').classList.add('active');
+            } else {
+                updateUserDisplay();
                 updateStatusDisplay();
                 updateShuffleDisplay();
-            } 
+            }
         }
-        function updateUserDisplay() { 
+        function updateUserDisplay() {
             const displayEl = getEl('active-user-display');
             if (displayEl) {
                 // 名前の横に公開/非公開を小さく英語で表示
@@ -1305,7 +1360,7 @@
                 }
             }
         };
-        
+
         // カスタムステータスの保存
         window.saveCustomStatus = () => {
             const input = getEl('status-custom-input');
@@ -1317,7 +1372,7 @@
                 window.saveStatusToSpreadsheet();
             }
         };
-        
+
         // カスタム入力のキャンセル
         window.cancelCustomStatus = () => {
             const customInputArea = getEl('status-custom-input-area');
@@ -1360,7 +1415,7 @@
             localStorage.setItem('ethics_question_shuffle', isQuestionShuffleEnabled.toString());
             updateShuffleDisplay();
         }
-        
+
         window.toggleWeakList = () => {
             isWeakPointsMode = !isWeakPointsMode;
             localStorage.setItem('ethics_weak_points_mode', isWeakPointsMode.toString());
@@ -1378,7 +1433,7 @@
                 }
             }
         };
-        
+
         window.logoutUser = async () => {
             if (!confirm('ログアウトしますか？')) return;
             USER_NAME = '';
@@ -1387,6 +1442,12 @@
             USER_STATUS = '';
             isRankingPublic = true;
             userHistory = [];
+            cumulativeHistory = [];
+            lifetimeSummaryState = { totalExp: 0, sessionCount: 0, seasonExp: 0, seasonSessionCount: 0 };
+            rankingData = [];
+            pastSeasonRankings = [];
+            lifetimeRankingData = [];
+            rankingColumnSizingState = null;
             questionStats = {};
             localStorage.removeItem('ethics_user_name');
             localStorage.removeItem('ethics_user_class');
@@ -1404,7 +1465,7 @@
             const nameVal = normalizeUserName(getEl('user-name-input').value.trim());
             const classVal = getEl('user-class-select').value;
             const numberVal = getEl('user-number-input').value.trim();
-            
+
             // バリデーション
             if (!nameVal) {
                 showModal("登録エラー", "名前を入力してください。");
@@ -1423,21 +1484,21 @@
                 showModal("登録エラー", "番号は1~40の半角数字で入力してください。");
                 return;
             }
-            
+
             // 半角数字チェック
             if (!/^[0-9]+$/.test(numberVal)) {
                 showModal("登録エラー", "番号は半角数字のみ入力可能です。");
                 return;
             }
-            
+
             USER_NAME = nameVal;
             USER_CLASS = classVal;
             USER_NUMBER = numberVal;
-            
+
             localStorage.setItem('ethics_user_name', USER_NAME);
             localStorage.setItem('ethics_user_class', USER_CLASS);
             localStorage.setItem('ethics_user_number', USER_NUMBER);
-            
+
             getEl('registration-modal').classList.remove('active');
             updateUserDisplay();
             updateStatusDisplay();
@@ -1450,7 +1511,25 @@
         setOnClick('question-shuffle-display', toggleQuestionShuffle);
         setOnClick('status-custom-save-btn', window.saveCustomStatus);
         setOnClick('status-custom-cancel-btn', window.cancelCustomStatus);
-        
+        const pastRankingPanel = getEl('past-season-rankings-panel');
+        if (pastRankingPanel) {
+            pastRankingPanel.addEventListener('toggle', () => {
+                if (pastRankingPanel.open) {
+                    const sizing = rankingColumnSizingState || measureRankingColumns(getAllRankingEntriesForColumnSizing());
+                    renderPastSeasonRankings({ columnSizing: sizing });
+                }
+            });
+        }
+        const lifetimeRankingPanel = getEl('lifetime-ranking-panel');
+        if (lifetimeRankingPanel) {
+            lifetimeRankingPanel.addEventListener('toggle', () => {
+                if (lifetimeRankingPanel.open) {
+                    const sizing = rankingColumnSizingState || measureRankingColumns(getAllRankingEntriesForColumnSizing());
+                    renderLifetimeRanking({ columnSizing: sizing });
+                }
+            });
+        }
+
         // カスタム入力でEnterキーを押したときに保存
         const customInput = getEl('status-custom-input');
         if (customInput) {
@@ -1473,27 +1552,27 @@
             const spreadsheetUrl = urlInput && urlInput.value ? urlInput.value : FIXED_SPREADSHEET_URL;
             const sid = spreadsheetUrl.match(/\/d\/([a-zA-Z0-9-_]+)/)?.[1];
             if (!sid) return null;
-            
+
             // ユーザーIDの生成（クラス-番号-名前形式）
             const userId = `${USER_CLASS}-${USER_NUMBER}-${USER_NAME}`;
-            
-            const payload = { 
-                action: 'logAll', 
-                spreadsheetId: sid, 
-                dbName: USER_NAME, 
+
+            const payload = {
+                action: 'logAll',
+                spreadsheetId: sid,
+                dbName: USER_NAME,
                 userId: userId,
                 userClass: USER_CLASS,
                 userNumber: USER_NUMBER,
                 sessionId: currentSessionId || `${userId}-${Date.now()}`,
-                summaryAccuracy: pct + '%', 
-                summaryScore: `${correct}/${total}`, 
-                summaryRange: currentSessionRangeLabel, 
-                summaryEra: currentSessionEra, 
-                details: JSON.stringify(quizData.map((q, idx) => ({ era: q.era, qIdx: q.id.split('-').pop(), attemptNum: (questionStats[q.id]?.total || 1), result: sessionAnswers[idx] ? "○" : "×" }))), 
-                gainedExp: correct, 
-                finalStreak: streak, 
-                isPublic: isRankingPublic ? '1' : '0', 
-                status: USER_STATUS || '' 
+                summaryAccuracy: pct + '%',
+                summaryScore: `${correct}/${total}`,
+                summaryRange: currentSessionRangeLabel,
+                summaryEra: currentSessionEra,
+                details: JSON.stringify(quizData.map((q, idx) => ({ era: q.era, qIdx: q.id.split('-').pop(), attemptNum: (questionStats[q.id]?.total || 1), result: sessionAnswers[idx] ? "○" : "×" }))),
+                gainedExp: correct,
+                finalStreak: streak,
+                isPublic: isRankingPublic ? '1' : '0',
+                status: USER_STATUS || ''
             };
             sessionLogPromise = (async () => {
                 const result = await fetchWithRetry(`${FIXED_GAS_URL}?${new URLSearchParams(payload).toString()}`);
@@ -1511,12 +1590,178 @@
             }
         }
 
+
+        function getRankingGridTemplate(sizing) {
+            const nameWidth = sizing?.nameWidth || 120;
+            const statusWidth = sizing?.statusWidth || 150;
+            return `30px ${nameWidth}px 50px 35px 70px 70px 40px 50px 50px 140px ${statusWidth}px`;
+        }
+
+        function createRankingHeaderHtml(sizing) {
+            return `<div class="grid gap-3 items-center text-[8px] font-black text-white/40 uppercase border-b border-white/10 pb-1.5 mb-1" style="grid-template-columns: ${getRankingGridTemplate(sizing)};">
+                <span class="text-center">RK</span><span>NAME</span><span class="text-left">EXP</span><span class="text-left">LV</span><span class="text-left">10th Ave.</span><span class="text-left">ALL Ave.</span><span class="text-left">SESS</span><span class="text-left">CST</span><span class="text-left">MST</span><span class="text-left">LAST</span><span class="text-left">STATUS</span>
+            </div>`;
+        }
+
+        function getRankingUserName(entry) {
+            return entry?.name || entry?.dbName || entry?.userName || entry?.user_name || '--';
+        }
+
+        function getAllRankingEntriesForColumnSizing() {
+            return [
+                ...(Array.isArray(rankingData) ? rankingData : []),
+                ...(Array.isArray(lifetimeRankingData) ? lifetimeRankingData : []),
+                ...(Array.isArray(pastSeasonRankings) ? pastSeasonRankings.flatMap(s => Array.isArray(s.ranking) ? s.ranking : []) : [])
+            ];
+        }
+
+        function measureRankingColumns(entries = []) {
+            const tempSpan = document.createElement('span');
+            tempSpan.className = 'font-bold text-white whitespace-nowrap';
+            tempSpan.style.visibility = 'hidden';
+            tempSpan.style.position = 'absolute';
+            tempSpan.style.whiteSpace = 'nowrap';
+            document.body.appendChild(tempSpan);
+
+            let maxNameWidth = 0;
+            let maxStatusWidth = 0;
+            const safeEntries = Array.isArray(entries) ? entries : [];
+
+            [...safeEntries, { name: 'NAME', status: 'STATUS' }].forEach((r) => {
+                tempSpan.className = 'font-bold text-white whitespace-nowrap';
+                tempSpan.textContent = String(getRankingUserName(r));
+                maxNameWidth = Math.max(maxNameWidth, tempSpan.offsetWidth);
+
+                tempSpan.className = 'font-bold text-indigo-300 whitespace-nowrap';
+                tempSpan.textContent = String((r && r.status) || '--');
+                maxStatusWidth = Math.max(maxStatusWidth, tempSpan.offsetWidth);
+            });
+
+            document.body.removeChild(tempSpan);
+            return {
+                nameWidth: Math.min(Math.max(maxNameWidth + 20, 120), 260),
+                statusWidth: Math.min(Math.max(maxStatusWidth + 20, 150), 300)
+            };
+        }
+
+        function getRankingLastDateDisplay(entry, historyForMe = []) {
+            if (entry && entry.lastAttemptDate) {
+                return String(entry.lastAttemptDate).split(' ')[0] || '--';
+            }
+            if (Array.isArray(historyForMe) && historyForMe.length > 0) {
+                const latestEntry = [...historyForMe].sort((a, b) => b.timestamp - a.timestamp)[0];
+                if (latestEntry && latestEntry.timestamp) {
+                    const date = new Date(latestEntry.timestamp);
+                    return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
+                }
+            }
+            return '--';
+        }
+
+        function renderRankingTable(container, entries, options = {}) {
+            if (!container) return;
+            const data = Array.isArray(entries) ? entries : [];
+            const sizing = options.columnSizing || rankingColumnSizingState || measureRankingColumns(data);
+            if (options.headerEl) {
+                options.headerEl.style.display = 'grid';
+                options.headerEl.style.gridTemplateColumns = getRankingGridTemplate(sizing);
+            }
+            if (data.length === 0) {
+                container.innerHTML = '<div class="text-center text-[9px] text-slate-500/70 py-4 italic">No ranking data available</div>';
+                return;
+            }
+            container.innerHTML = data.map((r, i) => {
+                const exp = Number(r.exp || 0);
+                const rLv = Math.floor(exp / 10);
+                const userNameDisplay = getRankingUserName(r);
+                const isMe = userNameDisplay === USER_NAME;
+                const lastDateDisplay = getRankingLastDateDisplay(r, isMe ? (options.historyForMe || userHistory) : []);
+                const statusDisplay = (r.status || (isMe ? USER_STATUS : '')) || '--';
+                return `<div class="grid gap-3 items-center text-[10px] py-1.5 border-b border-white/5 last:border-0 ${isMe ? 'text-amber-300 bg-white/5 font-bold' : 'text-slate-200'}" style="grid-template-columns: ${getRankingGridTemplate(sizing)};">
+                    <span class="opacity-40 font-black text-center">${i + 1}</span>
+                    <span class="font-bold text-white whitespace-nowrap" style="min-width: 0;">${escapeHtmlAttribute(userNameDisplay)}</span>
+                    <span class="text-left font-flashy text-[9px] text-indigo-400">${exp}</span>
+                    <span class="text-left font-flashy text-[9px] text-emerald-400">${String(rLv).padStart(2,'0')}</span>
+                    <span class="text-left font-flashy text-[9px] text-orange-400">${formatAccStr(r.avg10)}</span>
+                    <span class="text-left font-flashy text-[9px] text-cyan-400">${formatAccStr(r.overall)}</span>
+                    <span class="text-left font-flashy opacity-60 text-[9px]">${r.count || 0}</span>
+                    <span class="text-left font-flashy text-[9px] text-amber-400">${(r.currentStreak !== undefined && r.currentStreak !== null) ? r.currentStreak : '--'}</span>
+                    <span class="text-left font-flashy text-[9px] text-cyan-400">${(r.maxStreak !== undefined && r.maxStreak !== null) ? r.maxStreak : '--'}</span>
+                    <span class="text-left font-flashy text-[9px] text-slate-200 opacity-90">${escapeHtmlAttribute(lastDateDisplay)}</span>
+                    <span class="text-left font-bold text-[10px] text-indigo-300 ranking-status-cell" style="min-width: ${sizing.statusWidth}px; max-width: ${sizing.statusWidth}px;" title="${escapeHtmlAttribute(statusDisplay)}">${escapeHtmlAttribute(statusDisplay)}</span>
+                </div>`;
+            }).join('');
+        }
+
+        function buildFallbackLifetimeRanking() {
+            if (!Array.isArray(cumulativeHistory) || cumulativeHistory.length === 0 || !USER_NAME) return [];
+            const latest = [...cumulativeHistory].sort((a, b) => b.timestamp - a.timestamp)[0];
+            if (!latest) return [];
+            return [{
+                name: USER_NAME,
+                dbName: USER_NAME,
+                exp: Number(lifetimeSummaryState?.totalExp || latest.totalExp || 0),
+                avg10: latest.avg10 || '--%',
+                overall: latest.overallAcc || latest.overall || '--%',
+                count: Number(lifetimeSummaryState?.sessionCount || cumulativeHistory.length),
+                status: USER_STATUS || '',
+                lastAttemptDate: latest.date || ''
+            }];
+        }
+
+        function renderPastSeasonRankings(options = {}) {
+            const container = getEl('past-season-rankings-container');
+            const countEl = getEl('past-season-ranking-count');
+            const seasons = Array.isArray(pastSeasonRankings) ? pastSeasonRankings : [];
+            if (countEl) countEl.innerText = `${seasons.length} season${seasons.length === 1 ? '' : 's'}`;
+            if (!container) return;
+            if (seasons.length === 0) {
+                container.innerHTML = '<div class="text-[9px] text-slate-500/70 py-2 italic">No past season data available</div>';
+                return;
+            }
+            const sizing = options.columnSizing || rankingColumnSizingState || measureRankingColumns(getAllRankingEntriesForColumnSizing());
+            container.innerHTML = seasons.map((season, idx) => {
+                const seasonId = escapeHtmlAttribute(season.seasonId || '過去ログ');
+                const label = escapeHtmlAttribute(season.label || seasonId);
+                const count = Array.isArray(season.ranking) ? season.ranking.length : 0;
+                return `<details class="rounded-xl border border-white/10 bg-white/[0.03] p-3" ${idx === 0 ? 'open' : ''}>
+                    <summary class="cursor-pointer text-[9px] font-black uppercase italic text-slate-300 flex items-center justify-between">
+                        <span>${label}</span>
+                        <span class="text-white/35 normal-case">${count} users</span>
+                    </summary>
+                    <div class="ranking-table-scroll mt-3">
+                        ${createRankingHeaderHtml(sizing)}
+                        <div class="past-season-ranking-table" data-season-index="${idx}"></div>
+                    </div>
+                </details>`;
+            }).join('');
+            container.querySelectorAll('.past-season-ranking-table').forEach((node) => {
+                const idx = Number(node.getAttribute('data-season-index'));
+                renderRankingTable(node, seasons[idx]?.ranking || [], { columnSizing: sizing, historyForMe: [] });
+            });
+        }
+
+        function renderLifetimeRanking(options = {}) {
+            const container = getEl('lifetime-ranking-container');
+            const countEl = getEl('lifetime-ranking-count');
+            const data = Array.isArray(lifetimeRankingData) && lifetimeRankingData.length > 0 ? lifetimeRankingData : buildFallbackLifetimeRanking();
+            if (countEl) countEl.innerText = `${data.length} user${data.length === 1 ? '' : 's'}`;
+            if (!container) return;
+            const sizing = options.columnSizing || rankingColumnSizingState || measureRankingColumns(getAllRankingEntriesForColumnSizing());
+            container.innerHTML = `<div class="ranking-table-scroll">${createRankingHeaderHtml(sizing)}<div id="lifetime-ranking-table"></div></div>`;
+            renderRankingTable(container.querySelector('#lifetime-ranking-table'), data, { columnSizing: sizing, historyForMe: cumulativeHistory });
+        }
+
         function updateStatsUI() {
             try {
                 const sorted = [...userHistory].sort((a,b) => b.timestamp - a.timestamp);
                 const latest = sorted[0];
+                const lifetimeExp = Number(lifetimeSummaryState?.totalExp || 0);
+                const lifetimeSessions = Number(lifetimeSummaryState?.sessionCount || cumulativeHistory.length || 0);
+                const lifetimeDisplay = getEl('lifetime-exp-display');
+                if (lifetimeDisplay) lifetimeDisplay.innerText = `累計EXP: ${lifetimeExp} / 累計演習: ${lifetimeSessions}`;
                 if (latest) {
-                    const totalExp = latest.totalExp || 0;
+                    const totalExp = Number(lifetimeSummaryState?.seasonExp || latest.totalExp || 0);
                     const expEl = getEl('total-neural-exp');
                     if (expEl) {
                         expEl.innerText = totalExp;
@@ -1526,10 +1771,10 @@
                         const remainingExp = nextLevelExp - totalExp;
                         const isLevelUpJustNow = (totalExp % 10 === 0 && totalExp > 0);
                         const isNearLevelUp = remainingExp <= 5 && remainingExp > 0;
-                        
+
                         // クラスをリセット
                         expEl.classList.remove('level-up-blink', 'near-level-up-blink');
-                        
+
                         if (isLevelUpJustNow) {
                             // レベルアップ直後：金色で点滅
                             expEl.classList.add('level-up-blink');
@@ -1540,7 +1785,7 @@
                     }
                     if (getEl('recent-accuracy')) getEl('recent-accuracy').innerText = formatAccStr(latest.avg10);
                     if (getEl('best-accuracy')) getEl('best-accuracy').innerText = formatAccStr(latest.overallAcc);
-                    if (getEl('total-sessions-count')) getEl('total-sessions-count').innerText = userHistory.length;
+                    if (getEl('total-sessions-count')) getEl('total-sessions-count').innerText = Number(lifetimeSummaryState?.seasonSessionCount || userHistory.length || 0);
                     const lv = Math.floor(totalExp / 10);
                     if (getEl('neural-level-display')) getEl('neural-level-display').innerText = `LV. ${String(lv).padStart(2, '0')}`;
                 } else {
@@ -1550,27 +1795,28 @@
                     if (getEl('best-accuracy')) getEl('best-accuracy').innerText = '--%';
                     if (getEl('total-sessions-count')) getEl('total-sessions-count').innerText = '0';
                     if (getEl('neural-level-display')) getEl('neural-level-display').innerText = 'LV. 00';
+                    if (lifetimeDisplay) lifetimeDisplay.innerText = `累計EXP: ${lifetimeExp} / 累計演習: ${lifetimeSessions}`;
                 }
-                
+
                 // 連続正解数を表示（GASスクリプトから取得した値を使用）
                 const currentStreak = window.currentStreak || 0;
                 const maxStreak = window.maxStreak || 0;
-                
+
                 if (getEl('current-streak-display')) getEl('current-streak-display').innerText = currentStreak;
                 if (getEl('max-streak-display')) getEl('max-streak-display').innerText = maxStreak;
-                
+
                 // ランキングデータがある場合のみランクを表示（分母も含める）
                 if (rankingData && rankingData.length > 0) {
                     const myRank = rankingData.findIndex(r => (r.name || r.dbName) === USER_NAME) + 1;
                     const totalRanking = rankingData.length;
                     const myData = rankingData.find(r => (r.name || r.dbName) === USER_NAME);
-                    
+
                     if (getEl('current-rank-display')) {
                         const rankEl = getEl('current-rank-display');
                         // ランクに応じてスタイルを変更（トップ10まで強調、上位50%以上も目立たせる）
                         rankEl.className = 'text-[10px] px-4 py-1 rounded-full border font-black italic';
                         const isTop50Percent = myRank > 0 && myRank <= Math.ceil(totalRanking / 2);
-                        
+
                         if (myRank > 0 && myRank <= 10) {
                             // トップ10までは順位に応じた強調
                             if (myRank === 1) {
@@ -1593,13 +1839,13 @@
                         // ランク表示は日付を含めない
                         rankEl.innerText = myRank > 0 ? `RANK ${myRank} / ${totalRanking}` : `RANK -- / ${totalRanking}`;
                     }
-                    
+
                     // 最終取り組み日時を表示（ランク表示の右側に別要素として）
                     if (getEl('last-attempt-display')) {
                         const lastEl = getEl('last-attempt-display');
                         let lastDate = null;
                         let lastDateStr = '';
-                        
+
                         if (myData && myData.lastAttemptDate) {
                             lastDateStr = myData.lastAttemptDate;
                             // "yyyy/MM/dd HH:mm:ss"形式から日付オブジェクトを作成
@@ -1630,14 +1876,14 @@
                                 lastDateStr = `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
                             }
                         }
-                        
+
                         if (lastDate) {
                             const now = new Date();
                             const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                             const lastDay = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate());
                             const diffTime = today - lastDay;
                             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                            
+
                             let daysAgoText = '';
                             if (diffDays === 0) {
                                 daysAgoText = 'Today';
@@ -1646,7 +1892,7 @@
                             } else {
                                 daysAgoText = `${diffDays} days ago`;
                             }
-                            
+
                             if (!lastDateStr) {
                                 const year = lastDate.getFullYear();
                                 const month = String(lastDate.getMonth() + 1).padStart(2, '0');
@@ -1656,7 +1902,7 @@
                                 const seconds = String(lastDate.getSeconds()).padStart(2, '0');
                                 lastDateStr = `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
                             }
-                            
+
                             // 連続日数を計算（ここで計算してLast表示の右に表示）
                             let consecutiveDays = 0;
                             const dailyStatsForStreak = {};
@@ -1670,13 +1916,13 @@
                             const sortedDatesForStreak = Object.keys(dailyStatsForStreak).sort((a, b) => new Date(b) - new Date(a));
                             const todayForStreak = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                             let checkDateForStreak = new Date(todayForStreak);
-                            
+
                             for (const dateStr of sortedDatesForStreak) {
                                 const date = new Date(dateStr);
                                 const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate());
                                 const diffTime = checkDateForStreak - dateOnly;
                                 const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                                
+
                                 if (diffDays === 0 || diffDays === 1) {
                                     consecutiveDays++;
                                     checkDateForStreak = new Date(dateOnly);
@@ -1684,14 +1930,14 @@
                                     break;
                                 }
                             }
-                            
+
                             lastEl.innerHTML = `Last: ${lastDateStr} <span class="text-cyan-300 font-bold">(${daysAgoText})</span> <span class="text-cyan-400 font-bold ml-2">${consecutiveDays} days streak</span>`;
                             lastEl.style.display = '';
                         } else {
                             lastEl.style.display = 'none';
                         }
                     }
-                    
+
                 } else {
                     if (getEl('current-rank-display')) {
                         getEl('current-rank-display').innerText = 'RANK --';
@@ -1705,144 +1951,19 @@
                 const rankCont = getEl('ranking-container');
                 const rankWrapper = getEl('ranking-card-wrapper');
                 const rankHeader = getEl('ranking-header');
-                
-                if (rankCont) { 
-                    // ランキングテーブルは常に表示（データがない場合でも）
+
+                if (rankCont) {
                     if (rankWrapper) rankWrapper.style.display = '';
-                    if (rankHeader) rankHeader.style.display = 'grid';
-                    
-                    if (rankingData && rankingData.length > 0) {
-                        console.log('ランキング表示開始:', rankingData.length, '件');
-                        
-                        // 最大の名前の幅を計算するための一時的な要素を作成
-                        const tempSpan = document.createElement('span');
-                        tempSpan.className = 'font-bold text-white whitespace-nowrap';
-                        tempSpan.style.visibility = 'hidden';
-                        tempSpan.style.position = 'absolute';
-                        tempSpan.style.whiteSpace = 'nowrap';
-                        document.body.appendChild(tempSpan);
-                        
-                        let maxNameWidth = 0;
-                        rankingData.forEach((r) => {
-                            const userNameDisplay = r.name || r.dbName || r.userName || r.user_name || '--';
-                            tempSpan.textContent = String(userNameDisplay);
-                            const width = tempSpan.offsetWidth;
-                            if (width > maxNameWidth) {
-                                maxNameWidth = width;
-                            }
-                        });
-                        
-                        // 最小幅を確保（"NAME"ラベルの幅も考慮）
-                        tempSpan.textContent = 'NAME';
-                        const labelWidth = tempSpan.offsetWidth;
-                        if (labelWidth > maxNameWidth) {
-                            maxNameWidth = labelWidth;
-                        }
-                        
-                        // パディングとマージンを考慮して少し余裕を持たせる
-                        maxNameWidth += 20;
-                        
-                        // 最大のstatusメッセージの幅を計算（1行表示用）
-                        let maxStatusWidth = 0;
-                        tempSpan.className = 'font-bold text-indigo-300';
-                        tempSpan.style.whiteSpace = 'nowrap';
-                        tempSpan.style.width = 'auto';
-                        
-                        rankingData.forEach((r) => {
-                            const statusDisplay = (r.status || (r.name === USER_NAME ? USER_STATUS : '')) || '--';
-                            tempSpan.textContent = String(statusDisplay);
-                            const width = tempSpan.offsetWidth;
-                            if (width > maxStatusWidth) {
-                                maxStatusWidth = width;
-                            }
-                        });
-                        
-                        // 最小幅を確保（"STATUS"ラベルの幅も考慮）
-                        tempSpan.textContent = 'STATUS';
-                        const statusLabelWidth = tempSpan.offsetWidth;
-                        if (statusLabelWidth > maxStatusWidth) {
-                            maxStatusWidth = statusLabelWidth;
-                        }
-                        
-                        // パディングとマージンを考慮して少し余裕を持たせる
-                        maxStatusWidth += 20;
-                        // 最小幅を確保（短いメッセージでも見やすく）
-                        if (maxStatusWidth < 150) {
-                            maxStatusWidth = 150;
-                        }
-                        // 最大幅を制限（長すぎる場合は横スクロールで対応）
-                        if (maxStatusWidth > 300) {
-                            maxStatusWidth = 300;
-                        }
-                        
-                        document.body.removeChild(tempSpan);
-                        
-                        console.log('最大の名前の幅:', maxNameWidth, 'px');
-                        console.log('最大のstatusの幅:', maxStatusWidth, 'px');
-                        
-                        rankCont.innerHTML = rankingData.map((r, i) => {
-                            console.log(`ランキングエントリ ${i}:`, r);
-                            const rLv = Math.floor((r.exp || 0) / 10);
-                            // 名前の取得を複数のプロパティから試行
-                            const userNameDisplay = r.name || r.dbName || r.userName || r.user_name || '--';
-                            console.log(`エントリ ${i} の名前:`, userNameDisplay, '元データ:', {name: r.name, dbName: r.dbName, userName: r.userName, user_name: r.user_name});
-                            const isMe = userNameDisplay === USER_NAME;
-                            // 最終取り組み日（userHistoryから取得、年月日のみ、時刻はカット）
-                            let lastDateDisplay = '--';
-                            // 自分の場合はuserHistoryから取得（フロントページと同じロジック）
-                            if (isMe && userHistory && userHistory.length > 0) {
-                                const sortedUserHistory = [...userHistory].sort((a, b) => b.timestamp - a.timestamp);
-                                const latestEntry = sortedUserHistory[0];
-                                if (latestEntry && latestEntry.timestamp) {
-                                    const date = new Date(latestEntry.timestamp);
-                                    const year = date.getFullYear();
-                                    const month = String(date.getMonth() + 1).padStart(2, '0');
-                                    const day = String(date.getDate()).padStart(2, '0');
-                                    lastDateDisplay = `${year}/${month}/${day}`;
-                                }
-                            }
-                            // rankingDataからも試す（フォールバック）
-                            if (lastDateDisplay === '--' && r.lastAttemptDate) {
-                                const dateTimeStr = String(r.lastAttemptDate);
-                                const dateTimeParts = dateTimeStr.split(' ');
-                                if (dateTimeParts.length >= 1) {
-                                    lastDateDisplay = dateTimeParts[0]; // 日付部分のみ（時刻はカット）
-                                }
-                            }
-                            const statusDisplay = (r.status || (isMe ? USER_STATUS : '')) || '--';
-                            // 名前を直接取得（確実に表示されるように）
-                            const finalUserName = r.name || r.dbName || userNameDisplay || 'Unknown';
-                            console.log(`最終的な名前表示: "${finalUserName}"`);
-                            
-                            const rowHtml = `<div class="grid gap-3 items-center text-[10px] py-1.5 border-b border-white/5 last:border-0 ${isMe ? 'text-amber-300 bg-white/5 font-bold' : 'text-slate-200'}" style="grid-template-columns: 30px ${maxNameWidth}px 50px 35px 70px 70px 40px 50px 50px 140px ${maxStatusWidth}px;">
-                                <span class="opacity-40 font-black text-center">${i+1}</span>
-                                <span class="font-bold text-white whitespace-nowrap" style="min-width: 0;">${String(finalUserName)}</span>
-                                <span class="text-left font-flashy text-[9px] text-indigo-400">${r.exp || 0}</span>
-                                <span class="text-left font-flashy text-[9px] text-emerald-400">${String(rLv).padStart(2,'0')}</span>
-                                <span class="text-left font-flashy text-[9px] text-orange-400">${r.avg10 || '--%'}</span>
-                                <span class="text-left font-flashy text-[9px] text-cyan-400">${r.overall || '--%'}</span>
-                                <span class="text-left font-flashy opacity-60 text-[9px]">${r.count || 0}</span>
-                                <span class="text-left font-flashy text-[9px] text-amber-400">${(r.currentStreak !== undefined && r.currentStreak !== null) ? r.currentStreak : '--'}</span>
-                                <span class="text-left font-flashy text-[9px] text-cyan-400">${(r.maxStreak !== undefined && r.maxStreak !== null) ? r.maxStreak : '--'}</span>
-                                <span class="text-left font-flashy text-[9px] text-slate-200 opacity-90">${lastDateDisplay}</span>
-                                <span class="text-left font-bold text-[10px] text-indigo-300 ranking-status-cell" style="min-width: ${maxStatusWidth}px; max-width: ${maxStatusWidth}px;" title="${statusDisplay}">${statusDisplay}</span>
-                            </div>`;
-                            console.log(`生成されたHTML (${i}行目):`, rowHtml);
-                            return rowHtml;
-                        }).join('');
-                        
-                        // ヘッダーの列幅も同じ値に設定
-                        const headerEl = getEl('ranking-header');
-                        if (headerEl) {
-                            headerEl.style.gridTemplateColumns = `30px ${maxNameWidth}px 50px 35px 70px 70px 40px 50px 50px 140px ${maxStatusWidth}px`;
-                        }
-                        
-                        console.log('最終的なHTML:', rankCont.innerHTML.substring(0, 500));
-                    } else {
-                        // データがない場合のメッセージ
-                        rankCont.innerHTML = '<div class="text-center text-[9px] text-slate-500/70 py-4 italic">No ranking data available</div>';
+                    const rankSummaryCount = getEl('ranking-summary-count');
+                    if (rankSummaryCount) {
+                        const rankingCount = Array.isArray(rankingData) ? rankingData.length : 0;
+                        rankSummaryCount.innerText = `${rankingCount} user${rankingCount === 1 ? '' : 's'}`;
                     }
-                    
+                    rankingColumnSizingState = measureRankingColumns(getAllRankingEntriesForColumnSizing());
+                    renderRankingTable(rankCont, rankingData, { headerEl: rankHeader, columnSizing: rankingColumnSizingState, historyForMe: userHistory });
+                    renderPastSeasonRankings({ columnSizing: rankingColumnSizingState });
+                    renderLifetimeRanking({ columnSizing: rankingColumnSizingState });
+
                     // 日付ごとの問題数と正答率を計算・表示（別の枠内で一番下に配置）
                     const dailyStatsEl = getEl('daily-stats-container');
                     if (dailyStatsEl) {
@@ -1863,12 +1984,12 @@
                                     dailyStats[dateKey].gainedExp += (h.correctCount || 0);
                                 }
                             });
-                            
+
                             // 日付順にソート（新しい順）
                             const sortedDailyStats = Object.entries(dailyStats).sort((a, b) => {
                                 return new Date(b[0]) - new Date(a[0]);
                             });
-                            
+
                             // 表示を構築
                             let html = `<div class="text-[10px] font-black uppercase italic mb-3" style="color: var(--accent-primary)">Daily Stats</div>`;
                             // ヘッダー行（ラベル）
@@ -1929,12 +2050,12 @@
             const labels = ["START", ...sortedData.map(h => h.date || "")];
             const solved = [0]; const sessionAcc = [null]; const cumAcc = [null];
             let cumSolved = 0;
-            sortedData.forEach(h => { 
-                cumSolved += Math.round(parseFloat(h.totalQ) || 0); 
-                solved.push(cumSolved); 
+            sortedData.forEach(h => {
+                cumSolved += Math.round(parseFloat(h.totalQ) || 0);
+                solved.push(cumSolved);
                 let sNum = parseFloat(String(h.score).replace('%',''));
                 if (sNum <= 1.0 && sNum > 0) sNum *= 100;
-                sessionAcc.push(isNaN(sNum) ? null : Math.round(sNum)); 
+                sessionAcc.push(isNaN(sNum) ? null : Math.round(sNum));
                 let aNum = parseFloat(String(h.avg10).replace('%',''));
                 if (aNum <= 1.0 && aNum > 0) aNum *= 100;
                 cumAcc.push(isNaN(aNum) ? null : Math.round(aNum));
@@ -1951,19 +2072,19 @@
                         { label: '直近10回平均', data: cumAcc, borderColor: accentColor, yAxisID: 'y2', tension: 0.2, pointRadius: 2, pointBackgroundColor: accentColor, borderWidth: 1, spanGaps: true }
                     ]
                 },
-                options: { 
+                options: {
                     responsive: true, maintainAspectRatio: false,
-                    layout: { padding: { left: -5, right: 0, top: 60, bottom: 5 } }, 
-                    scales: { 
-                        x: { type: 'category', display: true, ticks: { color: '#64748b', font: { size: 9 }, autoSkip: true }, grid: { display: false }, offset: false }, 
+                    layout: { padding: { left: -5, right: 0, top: 60, bottom: 5 } },
+                    scales: {
+                        x: { type: 'category', display: true, ticks: { color: '#64748b', font: { size: 9 }, autoSkip: true }, grid: { display: false }, offset: false },
                         y1: { type: 'linear', position: 'left', min: 0, max: y1Max, ticks: { color: '#00f2ff', stepSize: 50 }, grid: { color: 'rgba(255,255,255,0.05)' } },
-                        y2: { 
-                            type: 'linear', position: 'right', min: 0, max: 100, 
-                            ticks: { color: '#f59e0b', stepSize: 20, callback: (v) => v + '' }, 
-                            grid: { display: false } 
+                        y2: {
+                            type: 'linear', position: 'right', min: 0, max: 100,
+                            ticks: { color: '#f59e0b', stepSize: 20, callback: (v) => v + '' },
+                            grid: { display: false }
                         }
                     },
-                    plugins: { legend: { display: false } } 
+                    plugins: { legend: { display: false } }
                 }
             });
         }
@@ -1973,13 +2094,13 @@
             if (!text) return [];
             const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
             const problems = [];
-            
+
             lines.forEach((line, i) => {
                 // CSVのパース（カンマで分割、ただし引用符内のカンマは無視）
                 const cols = [];
                 let current = '';
                 let inQuotes = false;
-                
+
                 for (let j = 0; j < line.length; j++) {
                     const char = line[j];
                     if (char === '"') {
@@ -1992,16 +2113,16 @@
                     }
                 }
                 cols.push(current.trim()); // 最後のカラム
-                
+
                 if (cols.length >= 2 && cols[0] && cols[1]) {
                     const question = cols[0].replace(/^"|"$/g, '');
                     const answer = cols[1].replace(/^"|"$/g, '');
-                    
+
                     // CSV形式では選択肢が1つ（答えのみ）なので、答えを4つの選択肢として使用
                     // 実際のクイズでは選択肢が複数必要だが、現時点では答えを4回繰り返して選択肢とする
                     // （将来的には、他の選択肢を生成するロジックを追加可能）
                     const options = [answer, answer, answer, answer];
-                    
+
                     problems.push({
                         id: `${eraName}-${i + 1}`,
                         era: eraName,
@@ -2013,7 +2134,7 @@
                     });
                 }
             });
-            
+
             return problems;
         }
 
@@ -2021,37 +2142,37 @@
             if (!text) return [];
             const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
             const problems = [];
-            
+
             // ヘッダー行の候補（一般的なヘッダー名）
             const headerKeywords = ["問題", "問", "元素記号", "元素名", "原子番号", "記号", "名称", "番号"];
-            
+
             lines.forEach((line, i) => {
                 const cols = line.split('\t').map(c => c.trim().replace(/^"|"$/g, ''));
-                
+
                 // ヘッダー行をスキップ（最初の行で、かつヘッダーキーワードに一致する場合）
                 if (i === 0 && headerKeywords.some(keyword => cols[0] === keyword || cols.some(c => c === keyword))) {
                     return; // スキップ
                 }
-                
+
                 // 空行をスキップ
                 if (cols.length === 0 || cols.every(c => !c || c.trim() === '')) {
                     return;
                 }
-                
+
                 // データ形式の判定と処理
                 // 形式1: 標準TSV形式（問題、選択肢1-4、...、正解番号、解説）
                 if (cols.length >= 5) {
                     let qRaw = cols[0].replace(/^[（\(](基礎|標準|応用|発展)[）\)]/, "").trim().replace(/([①②③④])/g, '<br>$1').replace(/^<br>/, '');
                     let tag = cols[0].match(/^[（\(](基礎|標準|応用|発展)[）\)]/)?.[1] || "標準";
                     let rawExpl = (cols[13] || cols[14] || "詳細解説準備中。");
-                    problems.push({ 
-                        id: `${eraName}-${problems.length + 1}`, 
-                        era: eraName, 
-                        question: qRaw, 
-                        tag, 
-                        options: [cols[1], cols[2], cols[3], cols[4]], 
-                        answer: (parseInt(cols[10]) >= 1 && parseInt(cols[10]) <= 4) ? cols[parseInt(cols[10])] : cols[10], 
-                        explanation: rawExpl.replace(/([①②③④])/g, '<br>$1') 
+                    problems.push({
+                        id: `${eraName}-${problems.length + 1}`,
+                        era: eraName,
+                        question: qRaw,
+                        tag,
+                        options: [cols[1], cols[2], cols[3], cols[4]],
+                        answer: (parseInt(cols[10]) >= 1 && parseInt(cols[10]) <= 4) ? cols[parseInt(cols[10])] : cols[10],
+                        explanation: rawExpl.replace(/([①②③④])/g, '<br>$1')
                     });
                 }
                 // 形式2: 簡易形式（2-3列: 問題、答え、または問題、選択肢1、選択肢2、選択肢3、選択肢4、答え）
@@ -2059,7 +2180,7 @@
                     const question = cols[0];
                     let answer = '';
                     let options = [];
-                    
+
                     // 2列形式: 問題、答え
                     if (cols.length === 2) {
                         answer = cols[1];
@@ -2074,7 +2195,7 @@
                             options.push(answer || '');
                         }
                     }
-                    
+
                     if (question && answer) {
                         problems.push({
                             id: `${eraName}-${problems.length + 1}`,
@@ -2088,14 +2209,14 @@
                     }
                 }
             });
-            
+
             return problems;
         }
 
         window.renderEraMenu = () => {
             const container = getEl('era-menu-container'); if(!container) return;
             let rawData = localStorage.getItem('ethics_data_main');
-            
+
             // 以前の日本史バージョンのデータがある場合は、それも確認
             if (!rawData || rawData === '{}' || rawData === 'null') {
                 const oldData = localStorage.getItem('nihonshi_tsv_ultra_main');
@@ -2105,7 +2226,7 @@
                     rawData = oldData;
                 }
             }
-            
+
             let storedTSV = {};
             try {
                 storedTSV = rawData ? JSON.parse(rawData) : {};
@@ -2114,13 +2235,13 @@
                 container.innerHTML = '<div class="text-[9px] text-red-400 text-center py-4 italic">データの形式が正しくありません</div>';
                 return;
             }
-            
+
             // デバッグ用（コンソールに表示）
             console.log('ローカルストレージの生データ:', rawData?.substring(0, 200));
             console.log('パース後のstoredTSV:', storedTSV);
             console.log('storedTSVの型:', typeof storedTSV);
             console.log('storedTSVのキー:', Object.keys(storedTSV));
-            
+
             // CSV形式とTSV形式を自動判別してパース
             masterDataTotal = Object.entries(storedTSV).flatMap(([category, data]) => {
                 if (isSystemOrConfigSheetName(category)) {
@@ -2131,12 +2252,12 @@
                     console.warn(`カテゴリ "${category}" のデータが空です`);
                     return [];
                 }
-                
+
                 // 最初の行を確認してフォーマットを判別
                 const firstLine = data.split(/\r?\n/)[0] || '';
                 const tabCols = firstLine.split('\t');
                 const commaCols = firstLine.split(',');
-                
+
                 // TSV形式（タブ区切り）かCSV形式（カンマ区切り）かを判別
                 // タブの数が多い場合はTSV、カンマの数が多い場合はCSV
                 if (tabCols.length > commaCols.length) {
@@ -2152,7 +2273,7 @@
                 }
             });
             container.innerHTML = '';
-            
+
             // 物理の分野（シート名）をスプレッドシートから動的に取得
             // GASスクリプトから取得したシート名がstoredTSVのキーとして含まれている
             // 指定された順序で表示（スプレッドシートの実際のシート名を優先）
@@ -2160,7 +2281,7 @@
             const allSheetNames = Object.keys(storedTSV).filter(name => !isSystemOrConfigSheetName(name));
             console.log('取得したシート名:', allSheetNames);
             console.log('masterDataTotalの件数:', masterDataTotal.length);
-            
+
             if (allSheetNames.length === 0) {
                 const dataExists = rawData !== null && rawData !== '{}' && rawData !== '';
                 const debugInfo = dataExists ? 'データは存在しますが、シート名が取得できませんでした' : 'ローカルストレージにデータが見つかりません';
@@ -2173,7 +2294,7 @@
                 `;
                 return;
             }
-            
+
             // スプレッドシートのシート順序を取得（左から右の順序）
             let sheetOrder = [];
             try {
@@ -2185,7 +2306,7 @@
             } catch (e) {
                 console.error('シート順序の読み込みエラー:', e);
             }
-            
+
             // シート順序が存在する場合はそれを使用、ない場合はallSheetNamesの順序を使用
             let categories = [];
             if (sheetOrder.length > 0) {
@@ -2198,22 +2319,22 @@
                 // シート順序が保存されていない場合は、allSheetNamesの順序を使用
                 categories = allSheetNames;
             }
-            
+
             console.log('表示するカテゴリ順序:', categories);
-            
+
             const eraSessionStats = buildEraSessionStats(userHistory);
-            
+
             // 各分野（シート名）を表示
             categories.forEach((categoryName) => {
                 let categoryProblems = masterDataTotal.filter(d => d.era === categoryName);
-                
+
                 // Weak Pointsモードの場合は、通常のメニュー表示をスキップ（後で専用UIを表示）
                 if (isWeakPointsMode) {
                     return; // Weak Pointsモードの場合は通常のメニューを表示しない
                 }
-                
-                const eHeader = document.createElement('div'); 
-                eHeader.className = 'era-header'; 
+
+                const eHeader = document.createElement('div');
+                eHeader.className = 'era-header';
                 const sessionInfo = eraSessionStats[categoryName] || { count: 0, lastTs: 0 };
                 const lastDateDisplay = formatDateYmd(sessionInfo.lastTs);
                 eHeader.innerHTML = `
@@ -2231,23 +2352,23 @@
                     quizData = categoryProblems.slice();
                     startQuiz();
                 };
-                
+
                 container.appendChild(eHeader);
             });
             setTimeout(window.updateEraMenuScrollHint, 0);
-            
+
             // Weak Pointsモード用のUIを追加
             if (isWeakPointsMode) {
                 const weakPointsContainer = document.createElement('div');
                 weakPointsContainer.className = 'glass-panel rounded-[1.5rem] md:rounded-[2.5rem] p-5 md:p-8 space-y-4';
-                
+
                 const weakPointsHeader = document.createElement('div');
                 weakPointsHeader.className = 'text-center space-y-2';
                 weakPointsHeader.innerHTML = `
                     <h2 class="text-xl md:text-3xl font-flashy text-rose-300">今日の復習</h2>
                     <p class="text-[10px] md:text-sm text-slate-300">10問（短時間）</p>
                 `;
-                
+
                 const startWeakPointsBtn = document.createElement('button');
                 startWeakPointsBtn.className = 'w-full bg-rose-600 hover:bg-rose-700 text-white font-black py-4 rounded-2xl text-lg uppercase tracking-widest transition-all';
                 startWeakPointsBtn.innerText = '復習を開始';
@@ -2262,60 +2383,60 @@
                     currentSessionRangeLabel = "Weak Points";
                     startQuiz();
                 };
-                
+
                 weakPointsContainer.appendChild(weakPointsHeader);
                 weakPointsContainer.appendChild(startWeakPointsBtn);
                 container.appendChild(weakPointsContainer);
             }
         };
-        
+
         window.updateEraMenuScrollHint = () => {
             const menu = getEl('era-menu-container');
             const hint = getEl('era-scroll-hint');
             const fade = getEl('era-scroll-fade');
             if (!menu || !hint || !fade) return;
-            
+
             const hasOverflow = menu.scrollHeight > menu.clientHeight + 2;
             if (!hasOverflow) {
                 hint.classList.add('hidden');
                 fade.classList.add('hidden');
                 return;
             }
-            
+
             hint.classList.remove('hidden');
             const nearBottom = menu.scrollTop + menu.clientHeight >= menu.scrollHeight - 4;
             fade.classList.toggle('hidden', nearBottom);
         };
-        
+
         // Weak Pointsモード用の問題選択関数
         function selectWeakPointsProblems() {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             const todayTimestamp = today.getTime();
-            
+
             // 全問題を取得
             const allProblems = [...masterDataTotal];
-            
+
             // 各問題をカテゴリに分類
             const categoryA = []; // wrong_streak >= 2
             const categoryB = []; // wrong_streak >= 1 かつ last_wrong_at から数日経過（3日以上）
             const categoryC = []; // 直近で間違えた問題（last_wrong_at が最近）
             const categoryD = []; // 正解だが last_right_at から時間が経過（due_at が今日以前）
-            
+
             allProblems.forEach(q => {
                 const stats = questionStats[q.id];
-                
+
                 // 問題を一度も解いていない場合はスキップ（復習対象外）
                 if (!stats || !stats.total || stats.total === 0) {
                     return;
                 }
-                
+
                 // 初期化されていない場合はデフォルト値を設定
                 const wrong_streak = stats.wrong_streak || 0;
                 const last_wrong_at = stats.last_wrong_at || null;
                 const last_right_at = stats.last_right_at || null;
                 const due_at = stats.due_at || null;
-                
+
                 // カテゴリA: wrong_streak >= 2
                 if (wrong_streak >= 2) {
                     categoryA.push(q);
@@ -2346,19 +2467,19 @@
                     }
                 }
             });
-            
+
             // 各カテゴリをシャッフル
             shuffleArray(categoryA);
             shuffleArray(categoryB);
             shuffleArray(categoryC);
             shuffleArray(categoryD);
-            
+
             // 10問を選択（A:4問、B:3問、C:2問、D:1問）
             const selected = [];
-            
+
             // Aから4問
             selected.push(...categoryA.slice(0, 4));
-            
+
             // Bから3問（不足時はAから補完）
             if (categoryB.length >= 3) {
                 selected.push(...categoryB.slice(0, 3));
@@ -2367,7 +2488,7 @@
                 const remaining = 3 - categoryB.length;
                 selected.push(...categoryA.slice(4, 4 + remaining));
             }
-            
+
             // Cから2問（不足時はB→Aから補完）
             if (categoryC.length >= 2) {
                 selected.push(...categoryC.slice(0, 2));
@@ -2381,7 +2502,7 @@
                     selected.push(...categoryA.slice(4 + (3 - categoryB.length), 4 + (3 - categoryB.length) + fromA));
                 }
             }
-            
+
             // Dから1問（不足時はC→B→Aから補完）
             if (categoryD.length >= 1) {
                 selected.push(...categoryD.slice(0, 1));
@@ -2397,7 +2518,7 @@
                     selected.push(...categoryA.slice(4 + (3 - categoryB.length) + (2 - categoryC.length), 4 + (3 - categoryB.length) + (2 - categoryC.length) + fromA));
                 }
             }
-            
+
             // 10問に満たない場合は、全カテゴリからランダムに補完
             if (selected.length < 10) {
                 const remaining = 10 - selected.length;
@@ -2406,12 +2527,12 @@
                 shuffleArray(allRemaining);
                 selected.push(...allRemaining.slice(0, remaining));
             }
-            
+
             return selected.slice(0, 10); // 必ず10問
         };
 
-        function startQuiz() { 
-            currentIdx = 0; score = 0; streak = 0; sessionAnswers = []; 
+        function startQuiz() {
+            currentIdx = 0; score = 0; streak = 0; sessionAnswers = [];
             const userId = `${USER_CLASS}-${USER_NUMBER}-${USER_NAME}`;
             currentSessionId = `${userId}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
             sessionLogPromise = null;
@@ -2420,15 +2541,15 @@
             if (isQuestionShuffleEnabled) {
                 quizData = shuffleArray([...quizData]);
             }
-            getEl('home-screen').classList.add('hidden'); getEl('quiz-screen').classList.remove('hidden'); getEl('q-total').innerText = quizData.length; renderDots(); showQuestion(); 
+            getEl('home-screen').classList.add('hidden'); getEl('quiz-screen').classList.remove('hidden'); getEl('q-total').innerText = quizData.length; renderDots(); showQuestion();
         }
-        function showQuestion() { 
-            canAnswer = true; const q = quizData[currentIdx]; getEl('q-current').innerText = currentIdx + 1; 
-            getEl('current-accuracy').innerText = (currentIdx === 0 ? 0 : Math.round((score/currentIdx)*100)) + '%'; 
-            getEl('current-streak').innerText = streak; getEl('diff-badge').innerText = `${q.era} | ${q.tag}`; 
+        function showQuestion() {
+            canAnswer = true; const q = quizData[currentIdx]; getEl('q-current').innerText = currentIdx + 1;
+            getEl('current-accuracy').innerText = (currentIdx === 0 ? 0 : Math.round((score/currentIdx)*100)) + '%';
+            getEl('current-streak').innerText = streak; getEl('diff-badge').innerText = `${q.era} | ${q.tag}`;
             const statKey = q.id;
-            const qs = questionStats[statKey] || { total: 0, correct: 0 }; 
-            if(getEl('q-history-stat')) getEl('q-history-stat').innerText = `${qs.total === 0 ? 0 : Math.round((qs.correct / qs.total) * 100)}% (${qs.correct}/${qs.total})`; 
+            const qs = questionStats[statKey] || { total: 0, correct: 0 };
+            if(getEl('q-history-stat')) getEl('q-history-stat').innerText = `${qs.total === 0 ? 0 : Math.round((qs.correct / qs.total) * 100)}% (${qs.correct}/${qs.total})`;
             let qText = q.question
                 .replace(/適切でないもの/g, '<span class="text-rose-400 font-bold">適切でないもの</span>')
                 .replace(/適切なもの/g, '<span class="text-emerald-400 font-bold">適切なもの</span>')
@@ -2442,11 +2563,11 @@
             questionEl.innerHTML = qText;
             // KaTeXで数式をレンダリング（DOM更新後に実行）
             setTimeout(() => renderMath(questionEl), 100);
-            
-            const oc = getEl('options-container'); oc.innerHTML = ''; 
-            shuffleArray([...q.options]).forEach((opt) => { 
-                const btn = document.createElement('button'); 
-                btn.className = "option-btn"; 
+
+            const oc = getEl('options-container'); oc.innerHTML = '';
+            shuffleArray([...q.options]).forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn";
                 // 選択肢のテキストをHTMLに設定（data属性に元の値を保存）
                 btn.setAttribute('data-original-text', opt);
                 const optSpan = document.createElement('span');
@@ -2454,9 +2575,9 @@
                 btn.appendChild(optSpan);
                 // KaTeXで数式をレンダリング（DOM更新後に実行）
                 setTimeout(() => renderMath(optSpan), 100);
-                btn.onclick = () => handleAnswer(opt, btn); 
-                oc.appendChild(btn); 
-            }); 
+                btn.onclick = () => handleAnswer(opt, btn);
+                oc.appendChild(btn);
+            });
             getEl('feedback-area').classList.add('hidden');
             // 確実に画面上部へスクロール（複数手段を併用）
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2467,20 +2588,20 @@
                 window.scrollTo({ top: 0, behavior: 'auto' });
             }, 50);
         }
-        
-        async function handleAnswer(selected, btn) { 
-            if (!canAnswer) return; canAnswer = false; const q = quizData[currentIdx]; const isCorrect = (selected === q.answer); sessionAnswers[currentIdx] = isCorrect; 
+
+        async function handleAnswer(selected, btn) {
+            if (!canAnswer) return; canAnswer = false; const q = quizData[currentIdx]; const isCorrect = (selected === q.answer); sessionAnswers[currentIdx] = isCorrect;
             const statKey = q.id;
-            const exist = questionStats[statKey] || { total: 0, correct: 0 }; 
+            const exist = questionStats[statKey] || { total: 0, correct: 0 };
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             const todayTimestamp = today.getTime();
-            
+
             // 既存データとの互換性を保つため、復習システムの情報を初期化
             const wrong_streak = exist.wrong_streak !== undefined ? exist.wrong_streak : 0;
             const last_wrong_at = exist.last_wrong_at || null;
             const last_right_at = exist.last_right_at || null;
-            
+
             // 復習システムの状態遷移ルール
             if (isCorrect) {
                 // 正解時
@@ -2488,9 +2609,9 @@
                     // wrong_streak >= 1 の場合：wrong_streak -= 1, due_at = 今日 + 3日
                     const newDueDate = new Date(today);
                     newDueDate.setDate(newDueDate.getDate() + 3);
-                    questionStats[statKey] = { 
-                        total: exist.total + 1, 
-                        correct: exist.correct + 1, 
+                    questionStats[statKey] = {
+                        total: exist.total + 1,
+                        correct: exist.correct + 1,
                         lastDate: Date.now(),
                         wrong_streak: Math.max(0, wrong_streak - 1),
                         last_wrong_at: last_wrong_at,
@@ -2501,9 +2622,9 @@
                     // wrong_streak == 0 の場合：due_at = 今日 + 10日
                     const newDueDate = new Date(today);
                     newDueDate.setDate(newDueDate.getDate() + 10);
-                    questionStats[statKey] = { 
-                        total: exist.total + 1, 
-                        correct: exist.correct + 1, 
+                    questionStats[statKey] = {
+                        total: exist.total + 1,
+                        correct: exist.correct + 1,
                         lastDate: Date.now(),
                         wrong_streak: 0,
                         last_wrong_at: last_wrong_at,
@@ -2515,21 +2636,21 @@
                 // 不正解時：wrong_streak += 1, due_at = 今日 + 1日
                 const newDueDate = new Date(today);
                 newDueDate.setDate(newDueDate.getDate() + 1);
-                questionStats[statKey] = { 
-                    total: exist.total + 1, 
-                    correct: exist.correct, 
+                questionStats[statKey] = {
+                    total: exist.total + 1,
+                    correct: exist.correct,
                     lastDate: Date.now(),
                     wrong_streak: wrong_streak + 1,
                     last_wrong_at: todayTimestamp,
                     last_right_at: last_right_at,
                     due_at: newDueDate.getTime()
                 };
-            } 
-            if (isCorrect) { score++; streak++; getEl(`dot-${currentIdx}`).classList.add('dot-correct'); } 
-            else { streak = 0; getEl(`dot-${currentIdx}`).classList.add('dot-wrong'); } 
-            const btns = getEl('options-container').getElementsByTagName('button'); 
-            for (let b of btns) { 
-                b.disabled = true; 
+            }
+            if (isCorrect) { score++; streak++; getEl(`dot-${currentIdx}`).classList.add('dot-correct'); }
+            else { streak = 0; getEl(`dot-${currentIdx}`).classList.add('dot-wrong'); }
+            const btns = getEl('options-container').getElementsByTagName('button');
+            for (let b of btns) {
+                b.disabled = true;
                 // data属性から元のテキストを取得して比較（数式レンダリング後でも正しく動作）
                 const originalText = b.getAttribute('data-original-text') || '';
                 if (originalText.trim() === q.answer.trim()) {
@@ -2537,26 +2658,26 @@
                 } else if (originalText.trim() === selected.trim() && !isCorrect) {
                     b.classList.add('border-rose-500', 'bg-rose-500/20');
                 }
-            } 
-            getEl('feedback-area').classList.remove('hidden'); 
+            }
+            getEl('feedback-area').classList.remove('hidden');
             const explanationEl = getEl('explanation-content');
             explanationEl.innerHTML = q.explanation;
             // 解説でも数式をレンダリング（DOM更新後に実行）
             setTimeout(() => renderMath(explanationEl), 100);
-            getEl('result-badge').innerText = isCorrect ? 'CORRECT' : 'INCORRECT'; 
-            getEl('result-badge').className = "px-6 py-2 rounded-full text-[10px] font-black uppercase w-fit " + (isCorrect ? "bg-emerald-500" : "bg-rose-500"); 
-            const voiceList = isCorrect ? praiseWords.perfect : praiseWords.low; getEl('voice-message').innerText = voiceList[Math.floor(Math.random() * voiceList.length)]; setTimeout(() => { getEl('feedback-area').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100); 
+            getEl('result-badge').innerText = isCorrect ? 'CORRECT' : 'INCORRECT';
+            getEl('result-badge').className = "px-6 py-2 rounded-full text-[10px] font-black uppercase w-fit " + (isCorrect ? "bg-emerald-500" : "bg-rose-500");
+            const voiceList = isCorrect ? praiseWords.perfect : praiseWords.low; getEl('voice-message').innerText = voiceList[Math.floor(Math.random() * voiceList.length)]; setTimeout(() => { getEl('feedback-area').scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
         }
 
         function renderDots() { const bar = getEl('dot-bar'); if(!bar) return; bar.innerHTML = ''; quizData.forEach((_, i) => { const d = document.createElement('div'); d.className = 'progress-dot'; d.id = `dot-${i}`; bar.appendChild(d); }); }
         function showModal(title, message) { const modal = getEl('custom-modal'); if(modal) { getEl('modal-title').innerText = title; getEl('modal-message').innerText = message; modal.classList.add('active'); } }
-        
+
         // 新版専用: 診断情報付きエラー表示
         function showDiagnosticError(error, isAuto = false) {
             let errorTitle = '同期エラー';
             let errorMessage = '';
             let diagnosticInfo = '';
-            
+
             if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
                 errorTitle = 'ネットワークエラー';
                 errorMessage = 'GASへの接続に失敗しました。';
@@ -2586,18 +2707,18 @@
                 errorMessage = error.message || 'データの取得に失敗しました。';
                 diagnosticInfo = `エラー詳細: ${error.message}\n\n対策:\n1. ブラウザのコンソール（F12）で詳細を確認\n2. GAS URLとスプレッドシートIDが正しいか確認\n3. ネットワーク接続を確認`;
             }
-            
+
             console.error('❌ [新版] エラー詳細:', {
                 title: errorTitle,
                 message: errorMessage,
                 originalError: error.message,
                 stack: error.stack
             });
-            
+
             if (!isAuto) {
                 showModal(errorTitle, `${errorMessage}\n\n${diagnosticInfo}`);
             }
-            
+
             // 画面上にもエラー表示を追加
             const errorDisplay = getEl('sync-error-display');
             if (errorDisplay) {
@@ -2620,7 +2741,7 @@
             const oldExp = parseInt(getEl('total-neural-exp').innerText) || 0;
             const oldLv = Math.floor(oldExp / 10);
             getEl('quiz-screen').classList.add('hidden'); getEl('result-screen').classList.remove('hidden');
-            const pct = Math.round((score / quizData.length) * 100); 
+            const pct = Math.round((score / quizData.length) * 100);
             const lvUpMsg = getEl('level-up-msg');
             if (lvUpMsg) lvUpMsg.classList.add('hidden');
             const expNoteEl = getEl('final-exp-note');
@@ -2639,7 +2760,7 @@
                     else lvUpMsg.classList.add('hidden');
                 }
             });
-            
+
             // 復習システムの情報をローカルストレージに保存
             try {
                 localStorage.setItem('ethics_question_stats', JSON.stringify(questionStats));
@@ -2663,7 +2784,7 @@
         }
 
         window.showHome = () => { getEl('quiz-screen').classList.add('hidden'); getEl('result-screen').classList.add('hidden'); getEl('home-screen').classList.remove('hidden'); updateStatsUI(); window.renderEraMenu(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
-        
+
         window.abortQuiz = () => {
             if (confirm('演習を中断しますか？進行状況は保存されません。')) {
                 // クイズの状態をリセット
@@ -2677,14 +2798,14 @@
                 window.showHome();
             }
         };
-        
-        window.syncAllFromSpreadsheet = async (isAuto = false) => { 
+
+        window.syncAllFromSpreadsheet = async (isAuto = false) => {
             if (!FIXED_GAS_URL) return;
-            
+
             // ユーザー情報が設定されていない場合でも問題データは取得できるようにする
             let userId = '';
             const hasUserInfo = USER_NAME && USER_NAME.trim() !== '' && USER_CLASS && USER_NUMBER;
-            
+
             if (hasUserInfo) {
                 // ユーザーIDの生成（クラス-番号-名前形式）
                 userId = `${USER_CLASS}-${USER_NUMBER}-${USER_NAME}`;
@@ -2695,19 +2816,19 @@
                 // ユーザー情報がない場合は空文字列を渡す（問題データは取得可能）
                 userId = '';
             }
-            
+
             // UIの入力フィールドからURLを取得（存在する場合）、なければ固定URLを使用
             const urlInput = getEl('main-spreadsheet-url');
             const spreadsheetUrl = urlInput && urlInput.value ? urlInput.value : FIXED_SPREADSHEET_URL;
             const sid = spreadsheetUrl.match(/\/d\/([a-zA-Z0-9-_]+)/)?.[1];
-            
+
             if (!sid) {
                 console.error('スプレッドシートIDが取得できません:', spreadsheetUrl);
                 if (!isAuto) showModal("Sync Error", "スプレッドシートURLが正しくありません。");
                 return;
             }
-            
-            try { 
+
+            try {
                 // userIdが空の場合はパラメータを省略しない（GAS側で空文字列として処理）
                 const syncUrl = `${FIXED_GAS_URL}?action=sync&id=${sid}${userId ? `&userId=${encodeURIComponent(userId)}` : ''}`;
                 console.log('🚀 [新版] 同期を開始:', {
@@ -2716,11 +2837,11 @@
                     hasUserInfo: hasUserInfo,
                     userId: userId || '(未設定)'
                 });
-                
-                const result = await fetchWithRetry(syncUrl); 
+
+                const result = await fetchWithRetry(syncUrl);
                 console.log('同期結果全体:', result);
                 console.log('resultの全キー:', Object.keys(result));
-                
+
                 // エラーチェック
                 if (result.error) {
                     console.error('同期エラー:', result.error);
@@ -2729,7 +2850,7 @@
                     }
                     return;
                 }
-                
+
                 // デバッグ情報を表示
                 if (result.debug) {
                     console.log('デバッグ情報:', result.debug);
@@ -2738,11 +2859,11 @@
                     console.log(`読み込んだシート: ${result.debug.loadedSheets.join(', ') || '(なし)'}`);
                     console.log(`問題シート数: ${result.debug.problemCount}`);
                 }
-                
+
                 console.log('result.problems:', result.problems);
                 console.log('result.problemsの型:', typeof result.problems);
                 console.log('result.problemsのキー:', result.problems ? Object.keys(result.problems) : 'null');
-                
+
                 // problemsの中身を詳しく確認
                 if (result.problems) {
                     console.log('result.problemsの詳細:', JSON.stringify(result.problems).substring(0, 500));
@@ -2763,7 +2884,7 @@
                         showModal("データエラー", "問題データが取得できませんでした。");
                     }
                 }
-                
+
                 if (result.problems) {
                     // データ構造を確認
                     localStorage.setItem('ethics_data_main', JSON.stringify(result.problems));
@@ -2774,41 +2895,53 @@
                     localStorage.setItem('ethics_sheet_order', JSON.stringify(result.sheetOrder));
                     console.log('シートの順序:', result.sheetOrder);
                 }
-                if(result.userStats) { 
-                    Object.entries(result.userStats).forEach(([key, s]) => { 
-                        questionStats[key] = { 
-                            total: parseInt(s.total) || 0, 
+                if(result.userStats) {
+                    Object.entries(result.userStats).forEach(([key, s]) => {
+                        questionStats[key] = {
+                            total: parseInt(s.total) || 0,
                             correct: parseInt(s.correct) || 0,
                             wrong_streak: parseInt(s.wrong_streak) || 0,
                             last_wrong_at: s.last_wrong_at ? parseInt(s.last_wrong_at) : null,
                             last_right_at: s.last_right_at ? parseInt(s.last_right_at) : null,
                             due_at: s.due_at ? parseInt(s.due_at) : null
-                        }; 
-                    }); 
+                        };
+                    });
                 }
                 updateRuntimeConfigUI(result.config || null);
-                if(result.history) userHistory = result.history; 
-                if(result.ranking) {
-                    rankingData = result.ranking;
-                    console.log('ランキングデータ:', rankingData);
+                cumulativeHistory = Array.isArray(result.history) ? result.history : [];
+                userHistory = Array.isArray(result.seasonHistory) ? result.seasonHistory : cumulativeHistory;
+                lifetimeSummaryState = result.lifetimeSummary || {
+                    totalExp: 0,
+                    sessionCount: cumulativeHistory.length,
+                    seasonExp: 0,
+                    seasonSessionCount: userHistory.length
+                };
+                pastSeasonRankings = Array.isArray(result.pastSeasonRankings) ? result.pastSeasonRankings : [];
+                lifetimeRankingData = Array.isArray(result.lifetimeRanking) ? result.lifetimeRanking : [];
+                if (lifetimeRankingData.length === 0) lifetimeRankingData = buildFallbackLifetimeRanking();
+                rankingData = Array.isArray(result.ranking) ? result.ranking : [];
+                if(rankingData.length > 0) {
+                    console.log('今期ランキングデータ:', rankingData);
+                    console.log('過去シーズンランキング:', pastSeasonRankings);
+                    console.log('累計ランキング:', lifetimeRankingData);
                     if (rankingData.length > 0) {
-                        console.log('最初のランキングエントリ:', rankingData[0]);
+                        console.log('最初の今期ランキングエントリ:', rankingData[0]);
                         console.log('最初のエントリのキー:', Object.keys(rankingData[0]));
                     }
                 }
                 // 連続正解数をグローバル変数に保存
                 window.currentStreak = result.currentStreak || 0;
-                window.maxStreak = result.maxStreak || 0; 
-                updateStatsUI(); window.renderEraMenu(); 
-            } catch (e) { 
+                window.maxStreak = result.maxStreak || 0;
+                updateStatsUI(); window.renderEraMenu();
+            } catch (e) {
                 console.error('❌ [新版] 同期エラー:', e);
                 console.error('❌ [新版] エラースタック:', e.stack);
-                
+
                 // 詳細なエラーメッセージを表示
                 showDiagnosticError(e, isAuto);
-            } 
+            }
         };
-        
+
         function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
 
         const praiseWords = {
@@ -2828,15 +2961,15 @@
         // 新版専用: DOMContentLoadedで同期を実行
         document.addEventListener('DOMContentLoaded', () => {
             console.log('🚀 [新版] DOMContentLoaded: 初期同期を開始');
-            
+
             // ユーザー情報の初期化
             initUserInfo();
-            
+
             // ユーザー情報が既に設定されている場合は同期を実行
             const savedName = localStorage.getItem('ethics_user_name');
             const savedClass = localStorage.getItem('ethics_user_class');
             const savedNumber = localStorage.getItem('ethics_user_number');
-            
+
             if (savedName && savedClass && savedNumber) {
                 console.log('✅ [新版] ユーザー情報が見つかりました。同期を実行します。');
                 // 少し遅延を入れて、他の初期化が完了してから同期
@@ -2861,7 +2994,7 @@
             initUserInfo();
             updateRuntimeConfigUI(null);
             window.applyFontSizeMode(localStorage.getItem(FONT_SIZE_STORAGE_KEY) || 'standard');
-            
+
             // 復習システムの情報をローカルストレージから読み込む
             try {
                 const savedStats = localStorage.getItem('ethics_question_stats');
@@ -2879,7 +3012,7 @@
             } catch (e) {
                 console.error('復習システムの情報の読み込みに失敗しました:', e);
             }
-            
+
             // Weak Pointsモードのボタンスタイルを初期化
             const weakBtn = document.querySelector('button[onclick="window.toggleWeakList()"]');
             if (weakBtn) {
@@ -2891,13 +3024,13 @@
                     weakBtn.classList.remove('bg-rose-600/40', 'border-rose-400/60', 'text-rose-200', 'shadow-lg', 'shadow-rose-500/50');
                 }
             }
-            
+
             // 入力フィールドにデフォルトURLを設定
             const urlInput = getEl('main-spreadsheet-url');
             if (urlInput && (!urlInput.value || urlInput.value.trim() === '')) {
                 urlInput.value = FIXED_SPREADSHEET_URL;
             }
-            
+
             const themeGrid = getEl('theme-grid');
             if (themeGrid) {
                 Object.entries(THEMES).forEach(([id, t]) => {
@@ -2912,7 +3045,7 @@
             }
             const savedTheme = localStorage.getItem('ethics_theme_mode') || 'modeA';
             applyTheme(savedTheme);
-            window.syncAllFromSpreadsheet(true); 
+            window.syncAllFromSpreadsheet(true);
             const eraMenuEl = getEl('era-menu-container');
             if (eraMenuEl) eraMenuEl.addEventListener('scroll', window.updateEraMenuScrollHint);
             window.addEventListener('resize', () => setTimeout(window.updateEraMenuScrollHint, 0));
@@ -2928,8 +3061,8 @@
                     finishSession();
                 }
             });
-            setOnClick('sync-all-btn-action', () => window.syncAllFromSpreadsheet(false)); 
-            setOnClick('cloud-sync-toggle-btn', () => { const area = getEl('sync-area'); if (area) area.classList.toggle('hidden'); }); 
+            setOnClick('sync-all-btn-action', () => window.syncAllFromSpreadsheet(false));
+            setOnClick('cloud-sync-toggle-btn', () => { const area = getEl('sync-area'); if (area) area.classList.toggle('hidden'); });
             setOnClick('app-url-copy-btn', copyAppUrl);
             setOnClick('admin-load-btn', loadAdminStatus);
             setOnClick('announcement-save-btn', saveAnnouncementFromAdmin);
