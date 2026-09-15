@@ -577,6 +577,8 @@
 
     <!-- 共通設定・共通関数 -->
     <script src="./common/science-shared.js"></script>
+    <link rel="stylesheet" href="./common/ai-tutor.css">
+    <script src="./common/ai-tutor.js"></script>
     <!-- スクリプト部分は以前のものを継続して使用 -->
     <script>
         const SHARED = window.ScienceShared || {};
@@ -1440,6 +1442,7 @@
 
         window.logoutUser = async () => {
             if (!confirm('ログアウトしますか？')) return;
+            window.M2AiTutor?.logout();
             USER_NAME = '';
             USER_CLASS = '';
             USER_NUMBER = '';
@@ -2565,6 +2568,7 @@
             getEl('home-screen').classList.add('hidden'); getEl('quiz-screen').classList.remove('hidden'); getEl('q-total').innerText = quizData.length; renderDots(); showQuestion();
         }
         function showQuestion() {
+            window.M2AiTutor?.reset();
             canAnswer = true; const q = quizData[currentIdx]; getEl('q-current').innerText = currentIdx + 1;
             getEl('current-accuracy').innerText = (currentIdx === 0 ? 0 : Math.round((score/currentIdx)*100)) + '%';
             getEl('current-streak').innerText = streak; getEl('diff-badge').innerText = `${q.era} | ${q.tag}`;
@@ -2683,6 +2687,9 @@
             getEl('feedback-area').classList.remove('hidden');
             const explanationEl = getEl('explanation-content');
             explanationEl.innerHTML = q.explanation;
+            let aiHost = getEl('ai-tutor-host');
+            if (!aiHost) { aiHost = document.createElement('div'); aiHost.id = 'ai-tutor-host'; explanationEl.after(aiHost); }
+            try { window.M2AiTutor?.mount(aiHost, q, selected); } catch (error) { console.warn('AI panel unavailable', error); }
             // 解説でも数式をレンダリング（DOM更新後に実行）
             setTimeout(() => renderMath(explanationEl), 100);
             getEl('result-badge').innerText = isCorrect ? 'CORRECT' : 'INCORRECT';
@@ -2786,6 +2793,7 @@
                 nextButton.setAttribute('aria-disabled', 'true');
             }
             getEl('quiz-screen')?.classList.add('hidden');
+            window.M2AiTutor?.reset();
             getEl('result-screen')?.classList.remove('hidden');
             if (lvUpMsg) lvUpMsg.classList.add('hidden');
             if (expNoteEl) expNoteEl.innerText = '';
@@ -2863,7 +2871,7 @@
 
         window.recoverQuestionProgress = () => advanceFromAnsweredQuestion({ recovery: true });
 
-        window.showHome = () => { isQuestionTransitioning = false; getEl('quiz-screen').classList.add('hidden'); getEl('result-screen').classList.add('hidden'); getEl('home-screen').classList.remove('hidden'); updateStatsUI(); window.renderEraMenu(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+        window.showHome = () => { window.M2AiTutor?.reset(); isQuestionTransitioning = false; getEl('quiz-screen').classList.add('hidden'); getEl('result-screen').classList.add('hidden'); getEl('home-screen').classList.remove('hidden'); updateStatsUI(); window.renderEraMenu(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
 
         window.abortQuiz = () => {
             if (confirm('演習を中断しますか？進行状況は保存されません。')) {
